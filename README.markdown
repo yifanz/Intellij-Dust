@@ -2,13 +2,13 @@
 
 Provides syntax highlighting for the Dust templating language.
 
-![image](https://bitbucket.org/yifanz/intellij-dust-plugin/downloads/dust_syntax_screenshot.png)
+![image](http://yifanz.github.com/Intellij-Dust/images/dust_syntax_screenshot.png)
 
 ## How to use
 
 WORK IN PROGRESS
 
-1. Download the [plugin](https://bitbucket.org/yifanz/intellij-dust-plugin/downloads/dust_syntax.jar)
+1. ~~Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax.jar)~~ This is not working yet
 
 2. Go to File > Settings > Plugins > Install plugin from disk
 
@@ -17,6 +17,8 @@ WORK IN PROGRESS
 1. Open the project with Intellij. The project is already setup to be an Intellij Plugin Module and should have the build settings configured. The only build dependency is the IDEA SDK.
 
 2. Install the [JFlex](http://plugins.jetbrains.com/plugin/?id=263) and [Grammar-Kit](http://plugins.jetbrains.com/plugin/?id=6606) plugins
+
+3. Disable the external compiler via Settings > Compiler > Use external build option.
 
 3. You will need the Grammar-Kit to generate the parser source files from Dust.bnf and JFlex to generate the DustLexer from Dust.flex.
 
