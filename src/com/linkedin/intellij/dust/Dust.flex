@@ -49,7 +49,7 @@ PARTIAL=\{>
 INLINE_PARTIAL=\{<
 BLOCK=\{\+
 CLOSE=\{\/
-ELSE=\{:else\}
+ELSE=\{:
 
 LD=\{
 RD=\}

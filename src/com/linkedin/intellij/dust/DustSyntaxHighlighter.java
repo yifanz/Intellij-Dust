@@ -25,18 +25,18 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
 public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   public static final TextAttributesKey COMMENT = createTextAttributesKey("DUST_COMMENT", SyntaxHighlighterColors.LINE_COMMENT);
   public static final TextAttributesKey TAG = createTextAttributesKey("DUST_TAG", SyntaxHighlighterColors.KEYWORD);
-  public static final TextAttributesKey ATTRIBUTE = createTextAttributesKey("DUST_ATTRIBUTE", SyntaxHighlighterColors.KEYWORD);
-  public static final TextAttributesKey OTHER = createTextAttributesKey("DUST_OTHER", SyntaxHighlighterColors.STRING);
+  public static final TextAttributesKey IDENTIFIER = createTextAttributesKey("DUST_IDENTIFIER", SyntaxHighlighterColors.KEYWORD);
+  public static final TextAttributesKey STRING = createTextAttributesKey("DUST_STRING", SyntaxHighlighterColors.STRING);
 
   static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("DUST_BAD_CHARACTER",
       new TextAttributes(Color.RED, null, null, null, Font.BOLD));
 
   private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
   private static final TextAttributesKey[] TAG_KEYS = new TextAttributesKey[]{TAG};
-  private static final TextAttributesKey[] ATTRIBUTE_KEYS = new TextAttributesKey[]{ATTRIBUTE};
+  private static final TextAttributesKey[] IDENTIFIER_KEYS = new TextAttributesKey[]{IDENTIFIER};
+  private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
   private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
   private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
-  private static final TextAttributesKey[] OTHER_KEYS = new TextAttributesKey[]{OTHER};
 
   @NotNull
   @Override
@@ -49,12 +49,12 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
     if (isPartOfComment(tokenType)) {
       return COMMENT_KEYS;
+    } else if (tokenType.equals(DustTypes.IDENTIFIER)) {
+      return IDENTIFIER_KEYS;
     } else if (isPartOfTag(tokenType)) {
       return TAG_KEYS;
-    } else if (tokenType.equals(DustTypes.ATTRIBUTE)) {
-      return ATTRIBUTE_KEYS;
-    } else if (tokenType.equals(DustTypes.OTHER)) {
-      return OTHER_KEYS;
+    } else if (tokenType.equals(DustTypes.STRING)) {
+      return STRING_KEYS;
     } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
       return BAD_CHAR_KEYS;
     } else {
