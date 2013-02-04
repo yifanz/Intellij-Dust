@@ -1,0 +1,23 @@
+# Dust Plugin for Intellij
+
+Provides syntax highlighting for the Dust templating language.
+
+![image](https://bitbucket.org/yifanz/intellij-dust-plugin/downloads/dust_syntax_screenshot.png)
+
+## How to use
+
+WORK IN PROGRESS
+
+1. Download the [plugin](https://bitbucket.org/yifanz/intellij-dust-plugin/downloads/dust_syntax.jar)
+
+2. Go to File > Settings > Plugins > Install plugin from disk
+
+## Developer Notes
+
+1. Open the project with Intellij. The project is already setup to be an Intellij Plugin Module and should have the build settings configured. The only build dependency is the IDEA SDK.
+
+2. Install the [JFlex](http://plugins.jetbrains.com/plugin/?id=263) and [Grammar-Kit](http://plugins.jetbrains.com/plugin/?id=6606) plugins
+
+3. You will need the Grammar-Kit to generate the parser source files from Dust.bnf and JFlex to generate the DustLexer from Dust.flex.
+
+4. (Optional) Install [PSI Viewer](http://plugins.jetbrains.com/plugin/?id=227) plugin which lets you see the parse tree graphically.

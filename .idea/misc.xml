@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CfmlProjectConfiguration">
+    <mappings2>
+      <CfmlMappingsConfig />
+    </mappings2>
+    <mappings>
+      <CfmlMappingsConfig />
+    </mappings>
+  </component>
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
+  <component name="JSHintConfiguration">
+    <option bitwise="true" />
+    <option curly="true" />
+    <option noarg="true" />
+    <option forin="true" />
+    <option strict="true" />
+    <option noempty="true" />
+    <option undef="true" />
+    <option eqeqeq="true" />
+    <option nonew="true" />
+    <option browser="true" />
+    <option indent="4" />
+    <option maxerr="50" />
+  </component>
+  <component name="JSLintConfiguration">
+    <option indent="2" />
+    <option maxerr="50" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
+

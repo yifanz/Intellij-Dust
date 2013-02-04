@@ -1,0 +1,29 @@
+{
+  parserClass="com.linkedin.intellij.dust.parser.DustParser"
+  stubParserClass="com.linkedin.intellij.dust.parser.GeneratedParserUtilBase"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Dust"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.linkedin.intellij.dust.psi"
+  psiImplPackage="com.linkedin.intellij.dust.psi.impl"
+
+  elementTypeHolderClass="com.linkedin.intellij.dust.psi.DustTypes"
+  elementTypeClass="com.linkedin.intellij.dust.psi.DustElementType"
+  tokenTypeClass="com.linkedin.intellij.dust.psi.DustTokenType"
+}
+
+dustFile ::= item_*
+
+private item_ ::= (comment|tag|HTML|CRLF|OTHER)
+
+comment ::= COMMENT_START COMMENT_CONTENT? COMMENT_END
+
+tag ::= (SECTION|EXISTANCE|NOT_EXISTANCE|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK|CLOSE|ELSE|LD)? (path|STRING|IDENTIFIER) attribute* filter* (SLASH_RD|RD)
+
+path::= PERIOD? IDENTIFIER (PERIOD IDENTIFIER)*
+
+attribute ::= IDENTIFIER EQUAL (IDENTIFIER|STRING)
+
+filter ::= PIPE IDENTIFIER
