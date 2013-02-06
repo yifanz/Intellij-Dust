@@ -78,7 +78,8 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
         || tokenType.equals(DustTypes.CLOSE)
         || tokenType.equals(DustTypes.ELSE)
         || tokenType.equals(DustTypes.PERIOD)
-        || tokenType.equals(DustTypes.PIPE);
+        || tokenType.equals(DustTypes.PIPE)
+        || tokenType.equals(DustTypes.EQUAL);
   }
 
   private static boolean isPartOfComment(IElementType tokenType) {
