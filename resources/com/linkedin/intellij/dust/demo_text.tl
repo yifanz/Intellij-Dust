@@ -15,7 +15,7 @@
           <p>{.first}</p>
         {:else}
           <button>what's your name</button>
-          <a href='{@pre.link key="home_page" args="id:{userId},track:{tackingCode}_suffix"/}'>
+          <a href='{@pre.link key="home_page" args="id:{userId},track:{tackingCode}_suffix"/}'></a>
         {/first}
     {/name}
   {/someInlinePartial}

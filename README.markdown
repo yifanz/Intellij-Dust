@@ -2,7 +2,7 @@
 
 Provides syntax highlighting for the Dust templating language.
 
-![image](http://yifanz.github.com/Intellij-Dust/images/dust_screenshot_5FEB2013.png)
+![image](http://yifanz.github.com/Intellij-Dust/images/dust_screenshot_06FEB2013.png)
 
 ## How to use
 
@@ -10,7 +10,7 @@ WORK IN PROGRESS
 
 Only tested in Intellij 12
 
-1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_e0725d9.jar)
+1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_218a32432d.jar)
 
 2. Go to File > Settings > Plugins > Install plugin from disk
 
