@@ -2,6 +2,8 @@ package com.linkedin.intellij.dust;
 
 import com.intellij.lexer.FlexAdapter;
 import com.intellij.lexer.Lexer;
+import com.intellij.lexer.LookAheadLexer;
+import com.intellij.lexer.MergingLexerAdapter;
 import com.intellij.openapi.editor.SyntaxHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.editor.markup.TextAttributes;
@@ -41,7 +43,8 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   @NotNull
   @Override
   public Lexer getHighlightingLexer() {
-    return new FlexAdapter(new DustLexer((Reader) null));
+    Lexer lexer = new FlexAdapter(new DustLexer((Reader) null));
+    return new DustHtmlMergingLexerAdapter();
   }
 
   @NotNull
