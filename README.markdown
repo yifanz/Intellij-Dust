@@ -2,13 +2,15 @@
 
 Provides syntax highlighting for the Dust templating language.
 
-![image](http://yifanz.github.com/Intellij-Dust/images/dust_syntax_screenshot.png)
+![image](http://yifanz.github.com/Intellij-Dust/images/dust_screenshot_5FEB2013.png)
 
 ## How to use
 
 WORK IN PROGRESS
 
-1. ~~Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax.jar)~~ This is not working yet
+Only tested in Intellij 12
+
+1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_e0725d9.jar)
 
 2. Go to File > Settings > Plugins > Install plugin from disk
 
