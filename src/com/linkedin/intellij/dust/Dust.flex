@@ -38,7 +38,7 @@ CRLF= \n|\r|\r\n
 WS=[\ \t\f]
 
 COMMENT_START=\{\!
-COMMENT_CONTENT=(\\.)|[^\!\{\}]
+COMMENT_CONTENT=.
 COMMENT_END=\!\}
 
 SECTION=\{\#
@@ -81,7 +81,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 
 <COMMENT> {
   {COMMENT_END}                       { popState(); return DustTypes.COMMENT_END; }
-  {COMMENT_CONTENT}+                  { return DustTypes.COMMENT_CONTENT; }
+  {COMMENT_CONTENT}                   { return DustTypes.COMMENT_CONTENT; }
 }
 
 /* Rules for HTML */
@@ -134,7 +134,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
     "\""                        { yybegin(IN_TAG); return DustTypes.HTML; }
 }
 /* END Rules for HTML */
-
+<YYINITIAL> {
 {SECTION}                             { pushState(DUST_TAG); return DustTypes.SECTION; }
 {EXISTANCE}                           { pushState(DUST_TAG); return DustTypes.EXISTANCE; }
 {NOT_EXISTANCE}                       { pushState(DUST_TAG); return DustTypes.NOT_EXISTANCE; }
@@ -146,7 +146,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 {ELSE}                                { pushState(DUST_TAG); return DustTypes.ELSE; }
 
 {LD}                                  { pushState(DUST_TAG); return DustTypes.LD; }
-
+}
 <DUST_TAG> {
   {STRING}                              { return DustTypes.STRING; }
 
@@ -164,4 +164,4 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 
 {WS}+                                 { return TokenType.WHITE_SPACE; }
 
-.                                     { return DustTypes.HTML; }
+.                                     { return TokenType.BAD_CHARACTER; }

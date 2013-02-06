@@ -6,7 +6,7 @@
   {<someInlinePartial}
     {!
       Comment
-      block
+      block {somepath}
     !}
     {?name}
         <span>{@some.helper key="some key" text="some value"/}</span>
