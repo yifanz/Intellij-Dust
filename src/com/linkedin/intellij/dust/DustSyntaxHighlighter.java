@@ -43,7 +43,6 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   @NotNull
   @Override
   public Lexer getHighlightingLexer() {
-    Lexer lexer = new FlexAdapter(new DustLexer((Reader) null));
     return new DustHtmlMergingLexerAdapter();
   }
 
@@ -77,7 +76,9 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
         || tokenType.equals(DustTypes.INLINE_PARTIAL)
         || tokenType.equals(DustTypes.BLOCK)
         || tokenType.equals(DustTypes.CLOSE)
-        || tokenType.equals(DustTypes.ELSE);
+        || tokenType.equals(DustTypes.ELSE)
+        || tokenType.equals(DustTypes.PERIOD)
+        || tokenType.equals(DustTypes.PIPE);
   }
 
   private static boolean isPartOfComment(IElementType tokenType) {
