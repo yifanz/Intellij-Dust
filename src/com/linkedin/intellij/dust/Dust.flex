@@ -15,7 +15,7 @@ import java.util.Stack;
 %type IElementType
 %eof{  return;
 %eof}
-%debug
+//%debug
 
 %{
   private Stack<Integer> lexStateStack = new Stack<java.lang.Integer>();
@@ -64,6 +64,9 @@ STRING=\"((\\.)|[^\"])*\"
 IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 
 %state DUST_TAG
+%state DUST_ATTR
+%state DUST_ATTR_STRING_SINGLE
+%state DUST_ATTR_STRING_DOUBLE
 %state COMMENT
 
 %state TAG_STARTED
@@ -148,12 +151,29 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 
 {LD}                                  { pushState(DUST_TAG); return DustTypes.LD; }
 
+<ATTR_VALUE_SIMPLE> {
+    [^ {}]+                     { return DustTypes.HTML; }
+    ">"                         { popState(); return DustTypes.HTML; /*TAG_CLOSING;*/ }
+    " "                         { yybegin(IN_TAG); return DustTypes.HTML; /*WHITE_SPACE*/ }
+}
+
+<ATTR_VALUE_SINGLE> {
+    [^'{}]+                     { return DustTypes.HTML; }
+    "'"                         { yybegin(IN_TAG); return DustTypes.HTML; }
+}
+
+<ATTR_VALUE_DOUBLE> {
+    [^\"{}]+                    { return DustTypes.HTML; }
+    "\""                        { yybegin(IN_TAG); return DustTypes.HTML; }
+}
+
 <DUST_TAG> {
   {STRING}                              { return DustTypes.STRING; }
 
   {RD}                                  { popState(); return DustTypes.RD; }
   {SLASH_RD}                            { popState(); return DustTypes.SLASH_RD; }
 
+  {EQUAL} / ['\"]                       { pushState(DUST_ATTR); return DustTypes.EQUAL; }
   {EQUAL}                               { return DustTypes.EQUAL; }
   {PIPE}                                { return DustTypes.PIPE; }
   {PERIOD}                              { return DustTypes.PERIOD; }
@@ -161,8 +181,23 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
   {IDENTIFIER}+                         { return DustTypes.IDENTIFIER; }
 }
 
+<DUST_ATTR> {
+  "\""                        { pushState(DUST_ATTR_STRING_DOUBLE); return DustTypes.STRING_START; }
+  "\'"                        { pushState(DUST_ATTR_STRING_SINGLE); return DustTypes.STRING_START; }
+}
+
+<DUST_ATTR_STRING_SINGLE> {
+  ((\\.)|[^'{}])+                     { return DustTypes.STRING; }
+  "'"                         { popState();popState(); return DustTypes.STRING_END; }
+}
+
+<DUST_ATTR_STRING_DOUBLE> {
+  ((\\.)|[^\"{}])+                    { return DustTypes.STRING; }
+  "\""                        { popState();popState(); return DustTypes.STRING_END; }
+}
+
 {CRLF}                                { return DustTypes.CRLF; }
 
 {WS}+                                 { return TokenType.WHITE_SPACE; }
 
-.                                     { return TokenType.BAD_CHARACTER; }
+.                                     { return DustTypes.HTML; }

@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.linkedin.intellij.dust</id>
   <name>Dust</name>
-  <version>1.0</version>
+  <version>0.1</version>
   <vendor email="yzhang@linkedin.com" url="http://www.linkedin.com">LinkedIn</vendor>
 
   <description><![CDATA[
@@ -38,6 +38,7 @@
     <!-- Add your extensions here -->
     <fileTypeFactory implementation="com.linkedin.intellij.dust.DustFileTypeFactory"/>
     <lang.parserDefinition language="Dust" implementationClass="com.linkedin.intellij.dust.DustParserDefinition"/>
+    <completion.contributor language="Dust" implementationClass="com.linkedin.intellij.dust.DustCompletionContributor" />
     <lang.fileViewProviderFactory language="Dust" implementationClass="com.linkedin.intellij.dust.DustFileViewProviderFactory" />
     <colorSettingsPage implementation="com.linkedin.intellij.dust.DustColorSettingsPage"/>
   </extensions>
