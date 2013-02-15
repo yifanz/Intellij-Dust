@@ -55,7 +55,7 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
       return IDENTIFIER_KEYS;
     } else if (isPartOfTag(tokenType)) {
       return TAG_KEYS;
-    } else if (tokenType.equals(DustTypes.STRING)) {
+    } else if (tokenType.equals(DustTypes.STRING) || tokenType.equals(DustTypes.STRING_START) || tokenType.equals(DustTypes.STRING_END)) {
       return STRING_KEYS;
     } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
       return BAD_CHAR_KEYS;
