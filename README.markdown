@@ -8,7 +8,7 @@ Provides syntax highlighting for the Dust templating language.
 
 WORK IN PROGRESS
 
-Only tested in Intellij 12
+Only tested in Intellij 12 Ultimate (must have license)
 
 1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_ea80498a065bfb.jar)
 
