@@ -16,16 +16,32 @@
 
 dustFile ::= item_*
 
-private item_ ::= (comment|tag|HTML|CRLF)
+private item_ ::= (comment|tag_block|tag|HTML|CRLF)
 
 comment ::= COMMENT_START COMMENT_CONTENT* COMMENT_END
 
-tag ::= ELSE | ((SECTION|EXISTANCE|NOT_EXISTANCE|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK|CLOSE|ELSE|LD)? (path|STRING|IDENTIFIER) attribute* filter* (SLASH_RD|RD))
+tag_block ::= open_tag (comment|tag_block|tag|HTML|CRLF)* close_tag
+
+tag ::= (self_close_tag|else_tag|key_tag)
+
+key_tag ::= LD tag_name tag_content RD
+
+open_tag ::= (SECTION|EXISTANCE|NOT_EXISTANCE|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK) tag_name tag_content RD
+
+else_tag ::= ELSE tag_name tag_content RD
+
+close_tag ::= CLOSE tag_name tag_content RD
+
+self_close_tag ::= (SECTION|EXISTANCE|NOT_EXISTANCE|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK|CLOSE|ELSE|LD) tag_name tag_content SLASH_RD
+
+tag_name ::= (path|STRING|IDENTIFIER)
+
+tag_content ::= attribute* filter*
 
 path::= PERIOD? IDENTIFIER (PERIOD IDENTIFIER)*
 
 attribute ::= IDENTIFIER EQUAL (IDENTIFIER|attrString)
 
-attrString ::= (STRING_START (tag | STRING+)+ STRING_END) | (STRING_START STRING_END)
+attrString ::= (STRING_START ((tag_block|tag) | STRING+)+ STRING_END) | (STRING_START STRING_END)
 
 filter ::= PIPE IDENTIFIER

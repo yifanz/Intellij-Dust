@@ -41,5 +41,6 @@
     <completion.contributor language="Dust" implementationClass="com.linkedin.intellij.dust.DustCompletionContributor" />
     <lang.fileViewProviderFactory language="Dust" implementationClass="com.linkedin.intellij.dust.DustFileViewProviderFactory" />
     <colorSettingsPage implementation="com.linkedin.intellij.dust.DustColorSettingsPage"/>
+    <annotator language="Dust" implementationClass="com.linkedin.intellij.dust.DustAnnotator"/>
   </extensions>
 </idea-plugin>
