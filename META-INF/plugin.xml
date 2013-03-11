@@ -9,7 +9,7 @@
       ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
+      Add change notes here. test<br>
       ]]>
   </change-notes>
 
@@ -38,6 +38,7 @@
     <!-- Add your extensions here -->
     <fileTypeFactory implementation="com.linkedin.intellij.dust.DustFileTypeFactory"/>
     <lang.parserDefinition language="Dust" implementationClass="com.linkedin.intellij.dust.DustParserDefinition"/>
+    <lang.formatter language="Dust" implementationClass="com.linkedin.intellij.dust.DustFormattingModelBuilder"/>
     <completion.contributor language="Dust" implementationClass="com.linkedin.intellij.dust.DustCompletionContributor" />
     <lang.fileViewProviderFactory language="Dust" implementationClass="com.linkedin.intellij.dust.DustFileViewProviderFactory" />
     <colorSettingsPage implementation="com.linkedin.intellij.dust.DustColorSettingsPage"/>

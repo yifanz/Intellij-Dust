@@ -1,14 +1,10 @@
 package com.linkedin.intellij.dust;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.linkedin.intellij.dust.psi.DustCloseTag;
 import com.linkedin.intellij.dust.psi.DustOpenTag;
-import com.linkedin.intellij.dust.psi.DustTag;
-import com.linkedin.intellij.dust.psi.DustTokenType;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -22,25 +18,30 @@ public class DustAnnotator implements Annotator {
   public void annotate(@NotNull final PsiElement element, @NotNull AnnotationHolder holder) {
     if (element instanceof DustOpenTag) {
       DustOpenTag openTag = (DustOpenTag) element;
-      if (!hasMatchingCloseTag(openTag)) {
-        holder.createErrorAnnotation(element.getTextRange(), "Could not find matching closing tag " + getTagName(openTag));
-      }
+      checkMatchingCloseTag(openTag, holder);
     }
   }
 
-  private static boolean hasMatchingCloseTag(DustOpenTag openTag) {
+  private static boolean checkMatchingCloseTag(DustOpenTag openTag, AnnotationHolder holder) {
     if (openTag == null) return false;
 
     String openTagName = getTagName(openTag);
     PsiElement sibling = openTag.getNextSibling();
+    DustCloseTag closeTag = null;
     while (sibling != null) {
       if (sibling instanceof DustCloseTag) {
-        DustCloseTag closeTag = (DustCloseTag) sibling;
+        closeTag = (DustCloseTag) sibling;
         if (getTagName(closeTag).equals(openTagName)) {
           return true;
         }
       }
       sibling = sibling.getNextSibling();
+    }
+
+    holder.createErrorAnnotation(openTag.getTextRange(), "Could not find matching closing tag " + getTagName(openTag));
+
+    if (closeTag != null) {
+      holder.createErrorAnnotation(closeTag.getTextRange(), "Could not find matching opening tag " + getTagName(closeTag));
     }
 
     return false;

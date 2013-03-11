@@ -14,6 +14,7 @@ import com.intellij.psi.templateLanguages.TemplateDataElementType;
 import com.intellij.psi.templateLanguages.TemplateDataLanguageMappings;
 import com.intellij.psi.templateLanguages.TemplateLanguage;
 import com.intellij.psi.templateLanguages.TemplateLanguageFileViewProvider;
+import com.intellij.psi.tree.IElementType;
 import com.linkedin.intellij.dust.psi.DustTokenType;
 import com.linkedin.intellij.dust.psi.DustTypes;
 import gnu.trove.THashSet;
@@ -29,7 +30,8 @@ import java.util.Set;
  * Time: 1:15 PM
  */
 public class DustFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProvider implements TemplateLanguageFileViewProvider {
-  private static final TemplateDataElementType templateDataElementType = new TemplateDataElementType("LATTE_TEMPLATE_DATA", DustLanguage.INSTANCE, DustTypes.HTML, new DustTokenType("OUTER"));
+  public static IElementType OUTER_TYPE = new DustTokenType("OUTER");
+  private static final TemplateDataElementType templateDataElementType = new TemplateDataElementType("DUST_TEMPLATE_DATA", DustLanguage.INSTANCE, DustTypes.HTML, OUTER_TYPE);
 
   // main language of the file (HTML)
   private final Language myTemplateDataLanguage;

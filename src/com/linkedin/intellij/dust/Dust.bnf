@@ -14,13 +14,13 @@
   tokenTypeClass="com.linkedin.intellij.dust.psi.DustTokenType"
 }
 
-dustFile ::= item_*
+dustFile ::= statements
 
-private item_ ::= (comment|tag_block|tag|HTML|CRLF) { pin=1 }
+statements ::= (comment|tag_block|tag|HTML|CRLF)* { pin=1 }
 
 comment ::= COMMENT_START COMMENT_CONTENT* COMMENT_END
 
-tag_block ::= open_tag (comment|tag_block|tag|HTML|CRLF)* close_tag { pin=1 }
+tag_block ::= open_tag statements close_tag { pin=1 }
 
 tag ::= (self_close_tag|else_tag|key_tag)
 
