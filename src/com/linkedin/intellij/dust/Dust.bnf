@@ -16,9 +16,11 @@
 
 dustFile ::= statements
 
-statements ::= (comment|tag_block|tag|HTML|CRLF)* { pin=1 }
+statements ::= (comment|tag_block|tag|json|HTML|CRLF)* { pin=1 }
 
 comment ::= COMMENT_START COMMENT_CONTENT* COMMENT_END
+
+json ::= LD (json|tag|HTML|CRLF|STRING|IDENTIFIER)* RD
 
 tag_block ::= open_tag statements close_tag { pin=1 }
 
@@ -42,6 +44,8 @@ path::= PERIOD? IDENTIFIER (PERIOD IDENTIFIER)*
 
 attribute ::= IDENTIFIER EQUAL (IDENTIFIER|attrString)
 
-attrString ::= (STRING_START ((tag_block|tag) | STRING+)+ STRING_END) | (STRING_START STRING_END)
+attrString ::= (STRING_START ((tag_block|tag|i18nFormat) | STRING+)+ STRING_END) | (STRING_START STRING_END)
+
+i18nFormat ::= LD (tag|IDENTIFIER|HTML)* RD
 
 filter ::= PIPE IDENTIFIER
