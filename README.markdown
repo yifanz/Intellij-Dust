@@ -10,7 +10,7 @@ WORK IN PROGRESS
 
 Only tested in Intellij 12 Ultimate (must have license)
 
-1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_8b18553.jar)
+1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_6db5815b.jar)
 
 2. Go to File > Settings > Plugins > Install plugin from disk
 
