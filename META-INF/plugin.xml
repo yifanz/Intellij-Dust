@@ -6,10 +6,11 @@
 
   <description><![CDATA[
       Dust syntax highlighter.<br>
+      https://github.com/yifanz/Intellij-Dust
       ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here. test<br>
+      Provides syntax highlighting for Dust templates<br>
       ]]>
   </change-notes>
 
