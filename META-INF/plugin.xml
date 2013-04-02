@@ -1,6 +1,6 @@
 <idea-plugin version="2">
   <id>com.linkedin.intellij.dust</id>
-  <name>Dust</name>
+  <name>Dust Support</name>
   <version>0.1</version>
   <vendor email="yzhang@linkedin.com" url="http://www.linkedin.com">LinkedIn</vendor>
 

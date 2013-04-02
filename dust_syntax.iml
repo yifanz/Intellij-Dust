@@ -11,5 +11,9 @@
     <orderEntry type="jdk" jdkName="IDEA IU-123.94" jdkType="IDEA JDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PluginUploader.PluginUploadConfigurable">
+    <option name="ARCHIVE_PATH" />
+    <option name="PLUGIN_ID" />
+  </component>
 </module>
 
