@@ -1,16 +1,24 @@
-<idea-plugin version="2">
+<idea-plugin version="2" url="https://github.com/yifanz/Intellij-Dust">
   <id>com.linkedin.intellij.dust</id>
-  <name>Dust Support</name>
+  <name>Dust Template Support</name>
   <version>0.1</version>
-  <vendor email="yzhang@linkedin.com" url="http://www.linkedin.com">LinkedIn</vendor>
+  <vendor logo="/com/linkedin/intellij/dust/icons/dust_icon.png" url="https://github.com/yifanz">Yi-Fan Zhang</vendor>
 
   <description><![CDATA[
-      Dust syntax highlighter.<br>
-      https://github.com/yifanz/Intellij-Dust
+      <a href="http://linkedin.github.com/dustjs/">Dust</a> Template Support
+      <br>
+      <br>
+      Issues, feature requests, source code: <a href="https://github.com/yifanz/Intellij-Dust">https://github.com/yifanz/Intellij-Dust</a>
       ]]></description>
 
+  <category>Custom Languages</category>
+
   <change-notes><![CDATA[
-      Provides syntax highlighting for Dust templates<br>
+    <b>Version 0.1</b>
+    <ul>
+      <li>
+        Provides syntax highlighting for Dust templates
+      </li>
       ]]>
   </change-notes>
 
@@ -19,9 +27,7 @@
 
   <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
-  -->
 
   <application-components>
     <!-- Add your application components here -->
