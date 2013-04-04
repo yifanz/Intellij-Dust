@@ -1,7 +1,7 @@
 <idea-plugin version="2" url="https://github.com/yifanz/Intellij-Dust">
   <id>com.linkedin.intellij.dust</id>
-  <name>Dust Template Support</name>
-  <version>0.1</version>
+  <name>Dust</name>
+  <version>0.1.1</version>
   <vendor logo="/com/linkedin/intellij/dust/icons/dust_icon.png" url="https://github.com/yifanz">Yi-Fan Zhang</vendor>
 
   <description><![CDATA[
@@ -14,11 +14,18 @@
   <category>Custom Languages</category>
 
   <change-notes><![CDATA[
+    <b>Version 0.1.1</b>
+    <ul>
+      <li>
+        Enable plugin for all JetBrain products
+      </li>
+    </ul>
     <b>Version 0.1</b>
     <ul>
       <li>
         Provides syntax highlighting for Dust templates
       </li>
+    </ul>
       ]]>
   </change-notes>
 
