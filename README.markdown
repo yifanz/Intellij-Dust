@@ -6,12 +6,22 @@ Provides syntax highlighting for the Dust templating language.
 
 ## How to use
 
-WORK IN PROGRESS
+Plugin is available through the [Jetbrains plugin repository](http://plugins.jetbrains.com/plugin/?idea&pluginId=7214)
 
-Only tested in Intellij 12 Ultimate (must have license)
+**Version 0.1.1**
+
+* Provides syntax highlighting for dust templates
+* Enabled for all Jetbrains IDEs
+
+**Install From Repository** *(recommended)*
+
+1. Find and right click to install the plugin - File > Settings > Plugins > Browse repositories
+2. Associate plugin with your dust file extension - File > Settings > File Types
+3. Customize appearance - File > Settings > Editor > Colors & Fonts > Dust
+
+**Manual Install**
 
 1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_3e47663bf1e.jar)
-
 2. Go to File > Settings > Plugins > Install plugin from disk
 
 ## Developer Notes
