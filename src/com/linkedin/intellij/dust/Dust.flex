@@ -18,6 +18,9 @@ import java.util.Stack;
 //%debug
 
 %{
+  private static final String[] checks = {"\"","(",")","=","\\s", ";"};
+  private static final String[] tagSymbols = {"#","?","^","@","<", ">", "+", "/", ":", "!"};
+
   private Stack<Integer> lexStateStack = new Stack<java.lang.Integer>();
 
   private void pushState(int state) {
@@ -38,7 +41,7 @@ CRLF= \n|\r|\r\n
 WS=[\ \t\f]
 
 COMMENT_START=\{\!
-COMMENT_CONTENT=.
+COMMENT_CONTENT=~\!\}
 COMMENT_END=\!\}
 
 SECTION=\{\#
@@ -58,8 +61,10 @@ SLASH_RD=\/\}
 EQUAL==
 PIPE=\|
 PERIOD=\.
+COLON=:
 
 STRING=\"((\\.)|[^\"])*\"
+STRING_SINGLE='((\\.)|[^'])*'
 
 IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 
@@ -84,7 +89,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 
 <COMMENT> {
   {COMMENT_END}                       { popState(); return DustTypes.COMMENT_END; }
-  {COMMENT_CONTENT}                   { return DustTypes.COMMENT_CONTENT; }
+  {COMMENT_CONTENT}                   { yypushback(2); return DustTypes.COMMENT_CONTENT; }
   {CRLF}                              { return DustTypes.COMMENT_CONTENT; }
 }
 
@@ -149,6 +154,56 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 {CLOSE}                               { pushState(DUST_TAG); return DustTypes.CLOSE; }
 {ELSE}                                { pushState(DUST_TAG); return DustTypes.ELSE; }
 
+{LD}{WS}+                             { return DustTypes.HTML; }
+{LD}{CRLF}+                           { return DustTypes.HTML; }
+
+<YYINITIAL> {
+{LD}~{RD}                             {
+  boolean isDustLD = true;
+
+  while (yylength() > 1) {
+    String c = yytext().subSequence(yylength() - 1, yylength()).toString();
+    for (int i = 0; i < checks.length; i++) {
+      if (c.equals(checks[i])) isDustLD = false;
+    }
+    if (yylength() == 2) {
+      if (c.equals("#")) {
+        pushState(DUST_TAG); return DustTypes.SECTION;
+      } else if (c.equals("?")) {
+        pushState(DUST_TAG); return DustTypes.EXISTANCE;
+      } else if (c.equals("^")) {
+        pushState(DUST_TAG); return DustTypes.NOT_EXISTANCE;
+      } else if (c.equals("@")) {
+        pushState(DUST_TAG); return DustTypes.HELPER;
+      } else if (c.equals(">")) {
+        pushState(DUST_TAG); return DustTypes.PARTIAL;
+      } else if (c.equals("<")) {
+        pushState(DUST_TAG); return DustTypes.INLINE_PARTIAL;
+      } else if (c.equals("+")) {
+        pushState(DUST_TAG); return DustTypes.BLOCK;
+      } else if (c.equals("/")) {
+        pushState(DUST_TAG); return DustTypes.CLOSE;
+      } else if (c.equals(":")) {
+        pushState(DUST_TAG); return DustTypes.ELSE;
+      } else if (c.equals("!")) {
+        pushState(COMMENT); return DustTypes.COMMENT_START;
+      } else if (c.equals(" ")) {
+        return DustTypes.HTML;
+      } else if (c.equals("\n")) {
+        return DustTypes.HTML;
+      }
+    }
+    yypushback(1);
+  }
+
+  if (isDustLD) {
+    pushState(DUST_TAG); return DustTypes.LD;
+  } else {
+    return DustTypes.HTML;
+  }
+}
+}
+
 {LD}                                  { pushState(DUST_TAG); return DustTypes.LD; }
 
 <ATTR_VALUE_SIMPLE> {
@@ -168,6 +223,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 }
 
 <DUST_TAG> {
+  {STRING_SINGLE}                       { return DustTypes.STRING_SINGLE; }
   {STRING}                              { return DustTypes.STRING; }
 
   {RD}                                  { popState(); return DustTypes.RD; }
@@ -177,6 +233,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
   {EQUAL}                               { return DustTypes.EQUAL; }
   {PIPE}                                { return DustTypes.PIPE; }
   {PERIOD}                              { return DustTypes.PERIOD; }
+  {COLON}                               { return DustTypes.COLON; }
 
   {IDENTIFIER}+                         { return DustTypes.IDENTIFIER; }
 }
