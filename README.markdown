@@ -8,6 +8,10 @@ Provides syntax highlighting for the Dust templating language.
 
 Plugin is available through the [Jetbrains plugin repository](http://plugins.jetbrains.com/plugin/?idea&pluginId=7214)
 
+**Version 0.1.2**
+
+* Fixes syntax highlighting when javascript is present in the template
+
 **Version 0.1.1**
 
 * Provides syntax highlighting for dust templates
@@ -21,7 +25,7 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 
 **Manual Install**
 
-1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_3e47663bf1e.jar)
+1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_21feb18762a.jar)
 2. Go to File > Settings > Plugins > Install plugin from disk
 
 ## Developer Notes
