@@ -41,6 +41,7 @@ CRLF= \n|\r|\r\n
 WS=[\ \t\f]
 
 COMMENT_START=\{\!
+COMMENT_TODO="TODO"
 COMMENT_CONTENT=~\!\}
 COMMENT_END=\!\}
 
@@ -73,6 +74,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 %state DUST_ATTR_STRING_SINGLE
 %state DUST_ATTR_STRING_DOUBLE
 %state COMMENT
+%state TODO
 
 %state TAG_STARTED
 %state CLOSING_TAG_STARTED
@@ -89,8 +91,15 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 
 <COMMENT> {
   {COMMENT_END}                       { popState(); return DustTypes.COMMENT_END; }
-  {COMMENT_CONTENT}                   { yypushback(2); return DustTypes.COMMENT_CONTENT; }
+  {COMMENT_TODO}                      { pushState(TODO); return DustTypes.COMMENT_TODO; }
   {CRLF}                              { return DustTypes.COMMENT_CONTENT; }
+  .                                   { return DustTypes.COMMENT_CONTENT; }
+}
+
+<TODO> {
+  {COMMENT_END}                       { popState();popState(); return DustTypes.COMMENT_END; }
+  {CRLF}                              { popState(); return DustTypes.COMMENT_CONTENT; }
+  .                                   { return DustTypes.COMMENT_TODO; }
 }
 
 /* Rules for HTML */

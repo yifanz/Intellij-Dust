@@ -26,7 +26,8 @@ public class DustColorSettingsPage implements ColorSettingsPage {
       new AttributesDescriptor("Dust Tag", DustSyntaxHighlighter.TAG),
       new AttributesDescriptor("Identifier", DustSyntaxHighlighter.IDENTIFIER),
       new AttributesDescriptor("String", DustSyntaxHighlighter.STRING),
-      new AttributesDescriptor("Comments", DustSyntaxHighlighter.COMMENT)
+      new AttributesDescriptor("Comments", DustSyntaxHighlighter.COMMENT),
+      new AttributesDescriptor("Comments", DustSyntaxHighlighter.TODO)
   };
 
   private String demo = "";

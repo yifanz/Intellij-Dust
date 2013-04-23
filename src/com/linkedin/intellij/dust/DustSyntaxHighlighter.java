@@ -4,6 +4,7 @@ import com.intellij.lexer.FlexAdapter;
 import com.intellij.lexer.Lexer;
 import com.intellij.lexer.LookAheadLexer;
 import com.intellij.lexer.MergingLexerAdapter;
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.SyntaxHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.editor.markup.TextAttributes;
@@ -26,6 +27,7 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
  */
 public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   public static final TextAttributesKey COMMENT = createTextAttributesKey("DUST_COMMENT", SyntaxHighlighterColors.LINE_COMMENT);
+  public static final TextAttributesKey TODO = createTextAttributesKey("DUST_TODO", new TextAttributes(Color.BLUE, null, null, null, Font.BOLD|Font.ITALIC));
   public static final TextAttributesKey TAG = createTextAttributesKey("DUST_TAG", SyntaxHighlighterColors.KEYWORD);
   public static final TextAttributesKey IDENTIFIER = createTextAttributesKey("DUST_IDENTIFIER", SyntaxHighlighterColors.KEYWORD);
   public static final TextAttributesKey STRING = createTextAttributesKey("DUST_STRING", SyntaxHighlighterColors.STRING);
@@ -34,6 +36,7 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
       new TextAttributes(Color.RED, null, null, null, Font.BOLD));
 
   private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
+  private static final TextAttributesKey[] TODO_KEYS = new TextAttributesKey[]{TODO};
   private static final TextAttributesKey[] TAG_KEYS = new TextAttributesKey[]{TAG};
   private static final TextAttributesKey[] IDENTIFIER_KEYS = new TextAttributesKey[]{IDENTIFIER};
   private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
@@ -51,6 +54,8 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
     if (isPartOfComment(tokenType)) {
       return COMMENT_KEYS;
+    } else if (tokenType.equals(DustTypes.COMMENT_TODO)) {
+      return TODO_KEYS;
     } else if (tokenType.equals(DustTypes.IDENTIFIER)) {
       return IDENTIFIER_KEYS;
     } else if (isPartOfTag(tokenType)) {

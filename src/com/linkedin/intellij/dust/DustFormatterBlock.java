@@ -23,6 +23,8 @@ import java.util.List;
  * User: yzhang
  * Date: 3/11/13
  * Time: 10:19 AM
+ *
+ * Based on the intellij mustache plugin
  */
 public class DustFormatterBlock extends TemplateLanguageBlock {
   DustFormatterBlock(@NotNull TemplateLanguageBlockFactory blockFactory, @NotNull CodeStyleSettings settings,

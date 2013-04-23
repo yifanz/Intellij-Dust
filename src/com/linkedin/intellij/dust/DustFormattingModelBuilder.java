@@ -20,6 +20,8 @@ import java.util.List;
  * User: yzhang
  * Date: 3/11/13
  * Time: 10:30 AM
+ *
+ * Based on the intellij mustache plugin
  */
 public class DustFormattingModelBuilder extends TemplateLanguageFormattingModelBuilder {
 
