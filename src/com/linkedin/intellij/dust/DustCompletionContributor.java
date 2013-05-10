@@ -4,7 +4,7 @@ import com.intellij.codeInsight.completion.*;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.util.ProcessingContext;
-import com.linkedin.intellij.dust.psi.DustTypes;
+//import com.linkedin.intellij.dust.psi.DustTypes;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * Time: 1:04 PM
  */
 public class DustCompletionContributor extends CompletionContributor {
-  public DustCompletionContributor() {
+  public DustCompletionContributor() {/*
     extend(CompletionType.BASIC,
         PlatformPatterns.psiElement(DustTypes.IDENTIFIER).withLanguage(DustLanguage.INSTANCE),
         new CompletionProvider<CompletionParameters>() {
@@ -38,6 +38,6 @@ public class DustCompletionContributor extends CompletionContributor {
             // TODO add more keywords, think about writing a reference based autocompleter
           }
         }
-    );
+    );*/
   }
 }

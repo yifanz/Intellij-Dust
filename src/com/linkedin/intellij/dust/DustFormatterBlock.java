@@ -12,7 +12,7 @@ import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.xml.SyntheticBlock;
 import com.intellij.psi.tree.IElementType;
 import com.linkedin.intellij.dust.psi.DustPsiUtil;
-import com.linkedin.intellij.dust.psi.DustTypes;
+//import com.linkedin.intellij.dust.psi.DustTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -108,7 +108,7 @@ public class DustFormatterBlock extends TemplateLanguageBlock {
   @Override
   protected IElementType getTemplateTextElementType() {
     // we ignore HTML tokens since they get formatted by the templated language
-    return DustTypes.HTML;
+    return null;//DustTypes.HTML;
   }
 
   @Override
@@ -131,13 +131,15 @@ public class DustFormatterBlock extends TemplateLanguageBlock {
      *
      * Also indent if we are wrapped in a block created by the templated language
      */
+    /*
     if (myNode.getElementType() == DustTypes.TAG_BLOCK
         || (getParent() instanceof DataLanguageBlockWrapper
         && (myNode.getElementType() != DustTypes.STATEMENTS || myNode.getTreeNext() instanceof PsiErrorElement))) {
       return new ChildAttributes(Indent.getNormalIndent(), null);
     } else {
       return new ChildAttributes(Indent.getNoneIndent(), null);
-    }
+    }*/
+    return null;
   }
 
 }

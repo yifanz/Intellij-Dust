@@ -1,4 +1,4 @@
-package com.linkedin.intellij.dust;
+package com.linkedin.intellij.dust.file;
 
 import com.intellij.lang.Language;
 import com.intellij.openapi.vfs.VirtualFile;

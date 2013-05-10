@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,13 +23,26 @@ import java.util.Map;
  * Time: 3:17 PM
  */
 public class DustColorSettingsPage implements ColorSettingsPage {
+  /*
   private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
       new AttributesDescriptor("Dust Tag", DustSyntaxHighlighter.TAG),
       new AttributesDescriptor("Identifier", DustSyntaxHighlighter.IDENTIFIER),
       new AttributesDescriptor("String", DustSyntaxHighlighter.STRING),
       new AttributesDescriptor("Comments", DustSyntaxHighlighter.COMMENT),
       new AttributesDescriptor("Comments", DustSyntaxHighlighter.TODO)
-  };
+  };*/
+  private static final AttributesDescriptor[] ATTRS;
+
+  static {
+    ATTRS = new AttributesDescriptor[DustSyntaxHighlighter.DISPLAY_NAMES.size()];
+    Set<TextAttributesKey> textAttributesKeys = DustSyntaxHighlighter.DISPLAY_NAMES.keySet();
+    TextAttributesKey[] keys = textAttributesKeys.toArray(new TextAttributesKey[textAttributesKeys.size()]);
+    for (int i = 0; i < keys.length; i++) {
+      TextAttributesKey key = keys[i];
+      String name = DustSyntaxHighlighter.DISPLAY_NAMES.get(key).getFirst();
+      ATTRS[i] = new AttributesDescriptor(name, key);
+    }
+  }
 
   private String demo = "";
 
@@ -79,7 +93,7 @@ public class DustColorSettingsPage implements ColorSettingsPage {
   @NotNull
   @Override
   public AttributesDescriptor[] getAttributeDescriptors() {
-    return DESCRIPTORS;
+    return ATTRS;
   }
 
   @NotNull
@@ -89,8 +103,7 @@ public class DustColorSettingsPage implements ColorSettingsPage {
   }
 
   @NotNull
-  @Override
   public String getDisplayName() {
-    return "Dust";
+    return DustBundle.message("dust.files.file.type.description");
   }
 }

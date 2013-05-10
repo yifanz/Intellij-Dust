@@ -3,8 +3,8 @@ package com.linkedin.intellij.dust;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.psi.PsiElement;
-import com.linkedin.intellij.dust.psi.DustCloseTag;
-import com.linkedin.intellij.dust.psi.DustOpenTag;
+//import com.linkedin.intellij.dust.psi.DustCloseTag;
+//import com.linkedin.intellij.dust.psi.DustOpenTag;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -15,14 +15,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public class DustAnnotator implements Annotator {
   @Override
-  public void annotate(@NotNull final PsiElement element, @NotNull AnnotationHolder holder) {
+  public void annotate(@NotNull final PsiElement element, @NotNull AnnotationHolder holder) {/*
     if (element instanceof DustOpenTag) {
       DustOpenTag openTag = (DustOpenTag) element;
       checkMatchingCloseTag(openTag, holder);
-    }
+    }*/
   }
 
-  private static boolean checkMatchingCloseTag(DustOpenTag openTag, AnnotationHolder holder) {
+  private static boolean checkMatchingCloseTag( AnnotationHolder holder) {/*
     if (openTag == null) return false;
 
     String openTagName = getTagName(openTag);
@@ -42,7 +42,7 @@ public class DustAnnotator implements Annotator {
 
     if (closeTag != null) {
       holder.createErrorAnnotation(closeTag.getTextRange(), "Could not find matching opening tag " + getTagName(closeTag));
-    }
+    }*/
 
     return false;
   }

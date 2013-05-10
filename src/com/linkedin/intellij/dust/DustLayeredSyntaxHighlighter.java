@@ -10,7 +10,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.templateLanguages.TemplateDataLanguageMappings;
-import com.linkedin.intellij.dust.psi.DustTypes;
+import com.linkedin.intellij.dust.parsing.DustTokenTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,15 +27,19 @@ public class DustLayeredSyntaxHighlighter extends LayeredLexerEditorHighlighter 
 
     // highlighter for outer lang
     FileType type = null;
-    if(project == null || virtualFile == null) {
+    if (project == null || virtualFile == null) {
       type = StdFileTypes.PLAIN_TEXT;
-    } else {
-      Language language = TemplateDataLanguageMappings.getInstance(project).getMapping(virtualFile);
-      if(language != null) type = language.getAssociatedFileType();
-      if(type == null) type = StdFileTypes.HTML;
     }
-    SyntaxHighlighter outerHighlighter = SyntaxHighlighter.PROVIDER.create(type, project, virtualFile);
+    else {
+      Language language = TemplateDataLanguageMappings.getInstance(project).getMapping(virtualFile);
+      if (language != null) type = language.getAssociatedFileType();
+      if (type == null) type = DustLanguage.getDefaultTemplateLang();
+    }
+    @SuppressWarnings("deprecation") // deprecated in IDEA 12, still needed in IDEA 11 TODO remove when IDEA 11 support is dropped
+        SyntaxHighlighter outerHighlighter = SyntaxHighlighter.PROVIDER.create(type, project, virtualFile);
 
-    registerLayer(DustTypes.HTML, new LayerDescriptor(outerHighlighter, ""));
+    registerLayer(DustTokenTypes.CONTENT, new LayerDescriptor(outerHighlighter, ""));
   }
 }
+
+

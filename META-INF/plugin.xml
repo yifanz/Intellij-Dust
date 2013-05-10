@@ -56,13 +56,10 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
-    <fileTypeFactory implementation="com.linkedin.intellij.dust.DustFileTypeFactory"/>
-    <lang.parserDefinition language="Dust" implementationClass="com.linkedin.intellij.dust.DustParserDefinition"/>
+    <fileTypeFactory implementation="com.linkedin.intellij.dust.file.DustFileTypeFactory"/>
+    <lang.parserDefinition language="Dust" implementationClass="com.linkedin.intellij.dust.parsing.DustParserDefinition"/>
     <lang.formatter language="Dust" implementationClass="com.linkedin.intellij.dust.DustFormattingModelBuilder"/>
-    <completion.contributor language="Dust" implementationClass="com.linkedin.intellij.dust.DustCompletionContributor" />
-    <lang.fileViewProviderFactory language="Dust" implementationClass="com.linkedin.intellij.dust.DustFileViewProviderFactory" />
+    <lang.fileViewProviderFactory language="Dust" implementationClass="com.linkedin.intellij.dust.file.DustFileViewProviderFactory" />
     <colorSettingsPage implementation="com.linkedin.intellij.dust.DustColorSettingsPage"/>
-    <annotator language="Dust" implementationClass="com.linkedin.intellij.dust.DustAnnotator"/>
-    <lang.commenter language="Dust" implementationClass="com.linkedin.intellij.dust.DustCommenter"/>
   </extensions>
 </idea-plugin>

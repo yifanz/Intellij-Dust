@@ -1,23 +1,21 @@
 package com.linkedin.intellij.dust;
 
-import com.intellij.lexer.FlexAdapter;
+import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.lexer.Lexer;
-import com.intellij.lexer.LookAheadLexer;
-import com.intellij.lexer.MergingLexerAdapter;
-import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.SyntaxHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
-import com.intellij.psi.TokenType;
+import com.intellij.openapi.util.Pair;
 import com.intellij.psi.tree.IElementType;
-import com.linkedin.intellij.dust.psi.DustTypes;
+import com.linkedin.intellij.dust.parsing.*;
+import com.linkedin.intellij.dust.parsing.DustLexer;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.io.Reader;
-
-import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,70 +24,93 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
  * Time: 3:13 PM
  */
 public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
-  public static final TextAttributesKey COMMENT = createTextAttributesKey("DUST_COMMENT", SyntaxHighlighterColors.LINE_COMMENT);
-  public static final TextAttributesKey TODO = createTextAttributesKey("DUST_TODO", new TextAttributes(Color.BLUE, null, null, null, Font.BOLD|Font.ITALIC));
-  public static final TextAttributesKey TAG = createTextAttributesKey("DUST_TAG", SyntaxHighlighterColors.KEYWORD);
-  public static final TextAttributesKey IDENTIFIER = createTextAttributesKey("DUST_IDENTIFIER", SyntaxHighlighterColors.KEYWORD);
-  public static final TextAttributesKey STRING = createTextAttributesKey("DUST_STRING", SyntaxHighlighterColors.STRING);
-
-  static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("DUST_BAD_CHARACTER",
-      new TextAttributes(Color.RED, null, null, null, Font.BOLD));
-
-  private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
-  private static final TextAttributesKey[] TODO_KEYS = new TextAttributesKey[]{TODO};
-  private static final TextAttributesKey[] TAG_KEYS = new TextAttributesKey[]{TAG};
-  private static final TextAttributesKey[] IDENTIFIER_KEYS = new TextAttributesKey[]{IDENTIFIER};
-  private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
-  private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
-  private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
+  private static final Map<IElementType, TextAttributesKey> keys1;
+  private static final Map<IElementType, TextAttributesKey> keys2;
 
   @NotNull
-  @Override
   public Lexer getHighlightingLexer() {
-    return new DustHtmlMergingLexerAdapter();
+    return new DustLexer();
+  }
+
+  private static final TextAttributesKey TAG = TextAttributesKey.createTextAttributesKey(
+      "DUST.TAG",
+      new TextAttributes(null, null, null, null, 1)
+  );
+
+  private static final TextAttributesKey IDENTIFIERS = TextAttributesKey.createTextAttributesKey(
+      "DUST.IDENTIFIERS",
+      SyntaxHighlighterColors.KEYWORD.getDefaultAttributes()
+  );
+
+  private static final TextAttributesKey COMMENTS = TextAttributesKey.createTextAttributesKey(
+      "DUST.COMMENTS",
+      SyntaxHighlighterColors.DOC_COMMENT.getDefaultAttributes()
+  );
+
+  private static final TextAttributesKey OPERATORS = TextAttributesKey.createTextAttributesKey(
+      "DUST.OPERATORS",
+      SyntaxHighlighterColors.OPERATION_SIGN.getDefaultAttributes()
+  );
+
+  private static final TextAttributesKey VALUES = TextAttributesKey.createTextAttributesKey(
+      "DUST.VALUES",
+      SyntaxHighlighterColors.NUMBER.getDefaultAttributes()
+  );
+
+  private static final TextAttributesKey STRINGS = TextAttributesKey.createTextAttributesKey(
+      "DUST.STRINGS",
+      SyntaxHighlighterColors.STRING.getDefaultAttributes()
+  );
+
+  @SuppressWarnings("UseJBColor") // TODO port to JBColor when we stop supporting IDEA 11
+  private static final TextAttributesKey ESCAPE = TextAttributesKey.createTextAttributesKey(
+      "DUST.ESCAPE",
+      new TextAttributes(Color.BLUE, null, null, null, 0)
+  );
+
+  static {
+    keys1 = new HashMap<IElementType, TextAttributesKey>();
+    keys2 = new HashMap<IElementType, TextAttributesKey>();
+
+    keys1.put(DustTokenTypes.OPEN, TAG);
+    keys1.put(DustTokenTypes.OPEN_SECTION, TAG);
+    keys1.put(DustTokenTypes.OPEN_PARTIAL, TAG);
+    keys1.put(DustTokenTypes.OPEN_ENDBLOCK, TAG);
+    keys1.put(DustTokenTypes.OPEN_INVERSE, TAG);
+    keys1.put(DustTokenTypes.OPEN_EXISTS, TAG);
+    keys1.put(DustTokenTypes.OPEN_BLOCK, TAG);
+    keys1.put(DustTokenTypes.OPEN_INLINE_PARTIAL, TAG);
+    keys1.put(DustTokenTypes.OPEN_HELPER, TAG);
+    keys1.put(DustTokenTypes.CLOSE, TAG);
+    keys1.put(DustTokenTypes.ID, IDENTIFIERS);
+    keys1.put(DustTokenTypes.PARTIAL_NAME, IDENTIFIERS);
+    keys1.put(DustTokenTypes.COMMENT, COMMENTS);
+    keys1.put(DustTokenTypes.UNCLOSED_COMMENT, COMMENTS);
+    keys1.put(DustTokenTypes.EQUALS, OPERATORS);
+    keys1.put(DustTokenTypes.SEP, OPERATORS);
+    keys1.put(DustTokenTypes.INTEGER, VALUES);
+    keys1.put(DustTokenTypes.ELSE, IDENTIFIERS);
+    keys1.put(DustTokenTypes.BOOLEAN, VALUES);
+    keys1.put(DustTokenTypes.STRING, STRINGS);
+    keys1.put(DustTokenTypes.ESCAPE_CHAR, ESCAPE);
   }
 
   @NotNull
-  @Override
   public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
-    if (isPartOfComment(tokenType)) {
-      return COMMENT_KEYS;
-    } else if (tokenType.equals(DustTypes.COMMENT_TODO)) {
-      return TODO_KEYS;
-    } else if (tokenType.equals(DustTypes.IDENTIFIER)) {
-      return IDENTIFIER_KEYS;
-    } else if (isPartOfTag(tokenType)) {
-      return TAG_KEYS;
-    } else if (tokenType.equals(DustTypes.STRING) || tokenType.equals(DustTypes.STRING_START) || tokenType.equals(DustTypes.STRING_END)) {
-      return STRING_KEYS;
-    } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
-      return BAD_CHAR_KEYS;
-    } else {
-      return EMPTY_KEYS;
-    }
+    return pack(keys1.get(tokenType), keys2.get(tokenType));
   }
 
-  private static boolean isPartOfTag(IElementType tokenType) {
-    return tokenType.equals(DustTypes.LD)
-        || tokenType.equals(DustTypes.RD)
-        || tokenType.equals(DustTypes.SLASH_RD)
-        || tokenType.equals(DustTypes.SECTION)
-        || tokenType.equals(DustTypes.EXISTANCE)
-        || tokenType.equals(DustTypes.NOT_EXISTANCE)
-        || tokenType.equals(DustTypes.HELPER)
-        || tokenType.equals(DustTypes.PARTIAL)
-        || tokenType.equals(DustTypes.INLINE_PARTIAL)
-        || tokenType.equals(DustTypes.BLOCK)
-        || tokenType.equals(DustTypes.CLOSE)
-        || tokenType.equals(DustTypes.ELSE)
-        || tokenType.equals(DustTypes.PERIOD)
-        || tokenType.equals(DustTypes.PIPE)
-        || tokenType.equals(DustTypes.EQUAL);
-  }
+  public static final Map<TextAttributesKey, Pair<String, HighlightSeverity>> DISPLAY_NAMES
+      = new LinkedHashMap<TextAttributesKey, Pair<String, HighlightSeverity>>();
 
-  private static boolean isPartOfComment(IElementType tokenType) {
-    return tokenType.equals(DustTypes.COMMENT_START)
-        || tokenType.equals(DustTypes.COMMENT_END)
-        || tokenType.equals(DustTypes.COMMENT_CONTENT);
+  static {
+    DISPLAY_NAMES.put(TAG, new Pair<String, HighlightSeverity>(DustBundle.message("dust.page.colors.descriptor.tag_braces.key"), null));
+    DISPLAY_NAMES.put(IDENTIFIERS, new Pair<String, HighlightSeverity>(DustBundle.message("dust.page.colors.descriptor.identifiers.key"), null));
+    DISPLAY_NAMES.put(COMMENTS, new Pair<String, HighlightSeverity>(DustBundle.message("dust.page.colors.descriptor.comments.key"), null));
+    DISPLAY_NAMES.put(OPERATORS, new Pair<String, HighlightSeverity>(DustBundle.message("dust.page.colors.descriptor.operators.key"), null));
+    DISPLAY_NAMES.put(VALUES, new Pair<String, HighlightSeverity>(DustBundle.message("dust.page.colors.descriptor.values.key"), null));
+    DISPLAY_NAMES.put(STRINGS, new Pair<String, HighlightSeverity>(DustBundle.message("dust.page.colors.descriptor.strings.key"), null));
+    DISPLAY_NAMES.put(ESCAPE, new Pair<String, HighlightSeverity>(DustBundle.message("dust.page.colors.descriptor.escape.key"), null));
   }
 }
+
