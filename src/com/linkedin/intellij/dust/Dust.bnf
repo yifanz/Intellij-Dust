@@ -26,9 +26,9 @@ tag_block ::= open_tag statements close_tag { pin=1 }
 
 tag ::= (self_close_tag|else_tag|key_tag)
 
-key_tag ::= LD tag_name context* tag_content RD
+key_tag ::= LD tag_name index_deref? context* tag_content RD
 
-open_tag ::= (SECTION|EXISTANCE|NOT_EXISTANCE|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK) tag_name context* tag_content RD
+open_tag ::= (SECTION|EXISTANCE|NOT_EXISTANCE|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK) CRLF? tag_name index_deref? context* tag_content RD
 
 else_tag ::= ELSE tag_name tag_content RD
 
@@ -38,13 +38,15 @@ self_close_tag ::= (SECTION|EXISTANCE|NOT_EXISTANCE|HELPER|PARTIAL|INLINE_PARTIA
 
 tag_name ::= (path|STRING|STRING_SINGLE|IDENTIFIER|PERIOD)
 
+index_deref ::= LB (IDENTIFIER+|path) RB
+
 context ::= COLON (path|STRING|STRING_SINGLE|IDENTIFIER|PERIOD)
 
 tag_content ::= attribute* filter*
 
 path::= PERIOD? IDENTIFIER (PERIOD IDENTIFIER)*
 
-attribute ::= IDENTIFIER EQUAL (path|attrString|IDENTIFIER)
+attribute ::= CRLF? IDENTIFIER EQUAL (path|attrString|IDENTIFIER) CRLF?
 
 attrString ::= (STRING_START ((tag_block|tag|i18nFormat) | STRING+)+ STRING_END) | (STRING_START STRING_END)
 

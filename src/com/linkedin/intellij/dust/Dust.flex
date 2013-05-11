@@ -58,6 +58,8 @@ ELSE=\{:
 LD=\{
 RD=\}
 SLASH_RD=\/\}
+LB=\[
+RB=\]
 
 EQUAL==
 PIPE=\|
@@ -70,6 +72,7 @@ STRING_SINGLE='((\\.)|[^'])*'
 IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 
 %state DUST_TAG
+%state DUST_INDEX
 %state DUST_ATTR
 %state DUST_ATTR_STRING_SINGLE
 %state DUST_ATTR_STRING_DOUBLE
@@ -245,8 +248,14 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
   {COLON}                               { return DustTypes.COLON; }
 
   {IDENTIFIER}+                         { return DustTypes.IDENTIFIER; }
+  {LB}                                  { pushState(DUST_INDEX); return DustTypes.LB; }
 }
 
+<DUST_INDEX> {
+  {IDENTIFIER}+                         { return DustTypes.IDENTIFIER; }
+  [0-9]+                         { return DustTypes.IDENTIFIER; }
+  {RB}                        { popState(); return DustTypes.RB; }
+}
 <DUST_ATTR> {
   "\""                        { pushState(DUST_ATTR_STRING_DOUBLE); return DustTypes.STRING_START; }
   "\'"                        { pushState(DUST_ATTR_STRING_SINGLE); return DustTypes.STRING_START; }
