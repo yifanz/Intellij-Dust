@@ -63,6 +63,7 @@
     <lang.fileViewProviderFactory language="Dust" implementationClass="com.linkedin.intellij.dust.DustFileViewProviderFactory" />
     <colorSettingsPage implementation="com.linkedin.intellij.dust.DustColorSettingsPage"/>
     <annotator language="Dust" implementationClass="com.linkedin.intellij.dust.DustAnnotator"/>
+    <braceMatcher filetype="Dust" implementationClass="com.linkedin.intellij.dust.DustBraceMatcher"/>
     <lang.commenter language="Dust" implementationClass="com.linkedin.intellij.dust.DustCommenter"/>
   </extensions>
 </idea-plugin>

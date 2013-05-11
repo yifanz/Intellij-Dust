@@ -72,6 +72,8 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   private static boolean isPartOfTag(IElementType tokenType) {
     return tokenType.equals(DustTypes.LD)
         || tokenType.equals(DustTypes.RD)
+        || tokenType.equals(DustTypes.LB)
+        || tokenType.equals(DustTypes.RB)
         || tokenType.equals(DustTypes.SLASH_RD)
         || tokenType.equals(DustTypes.SECTION)
         || tokenType.equals(DustTypes.EXISTANCE)
