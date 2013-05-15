@@ -72,7 +72,8 @@ public class DustBraceMatcher implements BraceMatcher {
           || iterator.getTokenType() == DustTypes.EXISTANCE
           || iterator.getTokenType() == DustTypes.NOT_EXISTANCE
           || iterator.getTokenType() == DustTypes.INLINE_PARTIAL
-          || iterator.getTokenType() == DustTypes.BLOCK) {
+          || iterator.getTokenType() == DustTypes.BLOCK
+          || iterator.getTokenType() == DustTypes.HELPER) {
         // If first open type token we encountered is a block opener, the this is not a close brace because
         // the paired close brace for these block openers is at the end of the corresponding block close tags
         break;
@@ -80,7 +81,6 @@ public class DustBraceMatcher implements BraceMatcher {
 
       if (iterator.getTokenType() == DustTypes.LD
           || iterator.getTokenType() == DustTypes.PARTIAL
-          || iterator.getTokenType() == DustTypes.HELPER
           || iterator.getTokenType() == DustTypes.CLOSE) {
         // If the first open token we encountered was a simple opener (i.e. didn't start a block)
         // or the closing brace of a closing tag, then this is definitely a right brace.

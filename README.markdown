@@ -8,6 +8,13 @@ Provides syntax highlighting for the Dust templating language.
 
 Plugin is available through the [Jetbrains plugin repository](http://plugins.jetbrains.com/plugin/?idea&pluginId=7214)
 
+**Version 0.2**
+
+* Added Dust brace match highlighting
+* Added "Ctrl+/" shortcut for Dust comments
+* Fix syntax highlighting for subscript operator in tags (e.g. {#section[0]}...{/section[0]})
+* Added TODO highlighting in comments
+
 **Version 0.1.2**
 
 * Fixes syntax highlighting when javascript is present in the template
