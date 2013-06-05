@@ -22,9 +22,11 @@ comment ::= COMMENT_START COMMENT_TODO* COMMENT_CONTENT* COMMENT_END
 
 json ::= LD (json|tag|HTML|CRLF|STRING|IDENTIFIER)* RD
 
-tag_block ::= open_tag statements close_tag { pin=1 }
+private statements_block ::= (statements? else_tag statements?) | statements
 
-tag ::= (self_close_tag|else_tag|key_tag)
+tag_block ::= open_tag statements_block close_tag { pin=1 }
+
+tag ::= (self_close_tag|key_tag)
 
 key_tag ::= LD tag_name index_deref? context* tag_content RD
 

@@ -79,6 +79,8 @@
     <colorSettingsPage implementation="com.linkedin.intellij.dust.DustColorSettingsPage"/>
     <annotator language="Dust" implementationClass="com.linkedin.intellij.dust.DustAnnotator"/>
     <braceMatcher filetype="Dust" implementationClass="com.linkedin.intellij.dust.DustBraceMatcher"/>
+    <typedHandler implementation="com.linkedin.intellij.dust.DustTypedHandler"/>
+    <enterHandlerDelegate implementation="com.linkedin.intellij.dust.DustEnterHandler"/>
     <lang.commenter language="Dust" implementationClass="com.linkedin.intellij.dust.DustCommenter"/>
   </extensions>
 </idea-plugin>

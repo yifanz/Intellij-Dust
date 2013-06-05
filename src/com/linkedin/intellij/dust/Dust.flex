@@ -38,7 +38,7 @@ import java.util.Stack;
 %}
 
 CRLF= \n|\r|\r\n
-WS=[\ \t\f]
+WS= {CRLF} | [\ \t\f]
 
 COMMENT_START=\{\!
 COMMENT_TODO="TODO"
@@ -89,7 +89,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 %state ATTR_VALUE_DOUBLE
 
 %%
-
+{WS}+                                 { return TokenType.WHITE_SPACE; }
 {COMMENT_START}                       { pushState(COMMENT); return DustTypes.COMMENT_START; }
 
 <COMMENT> {
@@ -214,6 +214,8 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
     return DustTypes.HTML;
   }
 }
+{WS}+                                 { return TokenType.WHITE_SPACE; }
+!([^]*"{"[^]*)                         { return DustTypes.HTML; }
 }
 
 {LD}                                  { pushState(DUST_TAG); return DustTypes.LD; }

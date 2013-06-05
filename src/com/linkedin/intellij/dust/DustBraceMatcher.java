@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * Created with IntelliJ IDEA.
@@ -60,12 +61,32 @@ public class DustBraceMatcher implements BraceMatcher {
 
     boolean isRBraceToken = false;
     int iteratorRetreatCount = 0;
+    final int INITIAL = 0;
+    final int STRING = 1;
+    final int BRACE = 2;
+    Stack<Integer> state = new Stack<Integer>();
+    state.push(INITIAL);
     while (true) {
       iterator.retreat();
       iteratorRetreatCount++;
 
       if (iterator.atEnd()) {
         break;
+      }
+
+      if (iterator.getTokenType() == DustTypes.STRING_END && state.peek().equals(INITIAL)) {
+        state.push(STRING);
+      } else if (iterator.getTokenType() == DustTypes.STRING_START && state.peek().equals(STRING)) {
+        state.pop();
+      } else if (RIGHT_BRACES.contains(iterator.getTokenType()) && state.peek().equals(INITIAL)) {
+        state.push(BRACE);
+      } else if (LEFT_BRACES.contains(iterator.getTokenType()) && state.peek().equals(BRACE)) {
+        state.pop();
+      }
+
+      if (state.peek().equals(STRING)
+          || state.peek().equals(BRACE)) {
+        continue;
       }
 
       if (iterator.getTokenType() == DustTypes.SECTION
@@ -81,7 +102,8 @@ public class DustBraceMatcher implements BraceMatcher {
 
       if (iterator.getTokenType() == DustTypes.LD
           || iterator.getTokenType() == DustTypes.PARTIAL
-          || iterator.getTokenType() == DustTypes.CLOSE) {
+          || iterator.getTokenType() == DustTypes.CLOSE
+          || iterator.getTokenType() == DustTypes.ELSE) {
         // If the first open token we encountered was a simple opener (i.e. didn't start a block)
         // or the closing brace of a closing tag, then this is definitely a right brace.
         isRBraceToken = true;

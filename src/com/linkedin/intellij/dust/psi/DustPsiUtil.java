@@ -11,6 +11,27 @@ import com.intellij.psi.util.PsiTreeUtil;
  * Time: 1:01 PM
  */
 public class DustPsiUtil {
+
+  public static DustOpenTag findParentOpenTagElement(PsiElement element) {
+    return (DustOpenTag) PsiTreeUtil.findFirstParent(element, true, new Condition<PsiElement>() {
+      @Override
+      public boolean value(PsiElement element) {
+        return element != null
+            && element instanceof DustOpenTag;
+      }
+    });
+  }
+
+  public static DustCloseTag findParentCloseTagElement(PsiElement element) {
+    return (DustCloseTag) PsiTreeUtil.findFirstParent(element, true, new Condition<PsiElement>() {
+      @Override
+      public boolean value(PsiElement element) {
+        return element != null
+            && element instanceof DustCloseTag;
+      }
+    });
+  }
+
   public static boolean isNonRootStatementsElement(PsiElement element) {
     PsiElement statementsParent = PsiTreeUtil.findFirstParent(element, true, new Condition<PsiElement>() {
       @Override

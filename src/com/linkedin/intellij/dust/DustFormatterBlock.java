@@ -11,6 +11,7 @@ import com.intellij.psi.PsiErrorElement;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.xml.SyntheticBlock;
 import com.intellij.psi.tree.IElementType;
+import com.linkedin.intellij.dust.psi.DustElseTag;
 import com.linkedin.intellij.dust.psi.DustPsiUtil;
 import com.linkedin.intellij.dust.psi.DustTypes;
 import org.jetbrains.annotations.NotNull;

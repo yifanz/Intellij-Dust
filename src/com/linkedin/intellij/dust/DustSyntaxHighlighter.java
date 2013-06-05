@@ -46,7 +46,7 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   @NotNull
   @Override
   public Lexer getHighlightingLexer() {
-    return new DustHtmlMergingLexerAdapter();
+    return new FlexAdapter(new DustLexer((Reader) null));
   }
 
   @NotNull
