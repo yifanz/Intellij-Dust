@@ -75,6 +75,7 @@
     <lang.parserDefinition language="Dust" implementationClass="com.linkedin.intellij.dust.DustParserDefinition"/>
     <lang.formatter language="Dust" implementationClass="com.linkedin.intellij.dust.DustFormattingModelBuilder"/>
     <completion.contributor language="Dust" implementationClass="com.linkedin.intellij.dust.DustCompletionContributor" />
+    <gotoDeclarationHandler implementation="com.linkedin.intellij.dust.DustGotoDeclarationHandler"/>
     <lang.fileViewProviderFactory language="Dust" implementationClass="com.linkedin.intellij.dust.DustFileViewProviderFactory" />
     <colorSettingsPage implementation="com.linkedin.intellij.dust.DustColorSettingsPage"/>
     <annotator language="Dust" implementationClass="com.linkedin.intellij.dust.DustAnnotator"/>
