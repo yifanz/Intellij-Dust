@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,6 +30,12 @@ public class DustColorSettingsPage implements ColorSettingsPage {
       new AttributesDescriptor("Comments", DustSyntaxHighlighter.COMMENT),
       new AttributesDescriptor("Todo", DustSyntaxHighlighter.TODO)
   };
+
+  private static final Map<String, TextAttributesKey>additionalHighlightingMap = new HashMap<String, TextAttributesKey>();
+  static {
+    additionalHighlightingMap.put("todocomment", DustSyntaxHighlighter.TODO);
+  }
+
 
   private String demo = "";
 
@@ -73,7 +80,7 @@ public class DustColorSettingsPage implements ColorSettingsPage {
   @Nullable
   @Override
   public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
-    return null;
+    return additionalHighlightingMap;
   }
 
   @NotNull

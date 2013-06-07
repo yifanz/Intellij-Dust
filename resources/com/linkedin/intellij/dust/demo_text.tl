@@ -1,18 +1,18 @@
-{! You are reading the DUST template example !}
+{!
+  You are reading the DUST template example
+  <todocomment>TODO comment</todocomment>
+  more comments {somepath}
+!}
 {#person test=something keya=valuea keyb="linked{expression}in"}
   Here is some HTML
   <div class="abc">this is text</div>
   {>"path/to/template"/}
   {<someInlinePartial}
-  {!
-    Multi-line Comment
-    TODO comment
-    more comments {somepath}
-  !}
     {?name}
       <!--
           HTML COMMENT
       --!>
+      {! Dust Comment !}
       <span>{@some.helper key="some key" text="some value"/}</span>
       <p>{key}{key|s}{key|h}{key|s|h|u} {! filters !}</p>
       {?first}
