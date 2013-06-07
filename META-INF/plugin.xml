@@ -23,7 +23,13 @@
         Added dust partial tag goto reference shortcut "Ctrl+b"
       </li>
       <li>
-        Bug fixes in brace matcher
+        Fix parsing error on self closing block tags
+      </li>
+      <li>
+        Fix brace matcher bug when key tags are used in attribute strings
+      </li>
+      <li>
+        Remove redundant HTML pattern rules in Dust lexer
       </li>
     </ul>
     <b>Version 0.2</b>

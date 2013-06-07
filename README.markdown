@@ -8,22 +8,6 @@ Provides syntax highlighting for the Dust templating language.
 
 Plugin is available through the [Jetbrains plugin repository](http://plugins.jetbrains.com/plugin/?idea&pluginId=7214)
 
-**Version 0.2**
-
-* Added Dust brace match highlighting
-* Added "Ctrl+/" shortcut for Dust comments
-* Fix syntax highlighting for subscript operator in tags (e.g. {#section[0]}...{/section[0]})
-* Added TODO highlighting in comments
-
-**Version 0.1.2**
-
-* Fixes syntax highlighting when javascript is present in the template
-
-**Version 0.1.1**
-
-* Provides syntax highlighting for dust templates
-* Enabled for all Jetbrains IDEs
-
 **Install From Repository** *(recommended)*
 
 1. Find and right click to install the plugin - File > Settings > Plugins > Browse repositories
@@ -46,3 +30,29 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 3. You will need the Grammar-Kit to generate the parser source files from Dust.bnf and JFlex to generate the DustLexer from Dust.flex. Since the generated sources are not checked into version control, you need to remember to generate the lexer/parser before compiling.
 
 4. (Optional) Install [PSI Viewer](http://plugins.jetbrains.com/plugin/?id=227) plugin which lets you see the parse tree graphically.
+
+## Release Notes
+
+**Version 0.3**
+
+* Added closing tag auto-completion
+* Added goto declaration shortcut "Ctrl+b" on dust partial tag references
+* Fix parsing error on self closing block tags
+* Fix brace matcher bug when key tags are used in attribute strings
+* Remove redundant HTML pattern rules in Dust lexer
+
+**Version 0.2**
+
+* Added Dust brace match highlighting
+* Added "Ctrl+/" shortcut for Dust comments
+* Fix syntax highlighting for subscript operator in tags (e.g. {#section[0]}...{/section[0]})
+* Added TODO highlighting in comments
+
+**Version 0.1.2**
+
+* Fixes syntax highlighting when javascript is present in the template
+
+**Version 0.1.1**
+
+* Provides syntax highlighting for dust templates
+* Enabled for all Jetbrains IDEs
