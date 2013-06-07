@@ -11,7 +11,7 @@
     {?name}
       <!--
           HTML COMMENT
-      --!>
+      -->
       {! Dust Comment !}
       <span>{@some.helper key="some key" text="some value"/}</span>
       <p>{key}{key|s}{key|h}{key|s|h|u} {! filters !}</p>
