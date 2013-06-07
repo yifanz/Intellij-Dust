@@ -40,11 +40,6 @@ import java.util.Stack;
 CRLF= \n|\r|\r\n
 WS= {CRLF} | [\ \t\f]
 
-COMMENT_START=\{\!
-COMMENT_TODO="TODO"
-COMMENT_CONTENT=~\!\}
-COMMENT_END=\!\}
-
 SECTION=\{\#
 EXISTANCE=\{\?
 NOT_EXISTANCE=\{\^
@@ -77,7 +72,6 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 %state DUST_ATTR_STRING_SINGLE
 %state DUST_ATTR_STRING_DOUBLE
 %state COMMENT
-%state TODO
 
 %state TAG_STARTED
 %state CLOSING_TAG_STARTED
@@ -89,20 +83,11 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 %state ATTR_VALUE_DOUBLE
 
 %%
+
 {WS}+                                 { return TokenType.WHITE_SPACE; }
-{COMMENT_START}                       { pushState(COMMENT); return DustTypes.COMMENT_START; }
 
 <COMMENT> {
-  {COMMENT_END}                       { popState(); return DustTypes.COMMENT_END; }
-  {COMMENT_TODO}                      { pushState(TODO); return DustTypes.COMMENT_TODO; }
-  {CRLF}                              { return DustTypes.COMMENT_CONTENT; }
-  .                                   { return DustTypes.COMMENT_CONTENT; }
-}
-
-<TODO> {
-  {COMMENT_END}                       { popState();popState(); return DustTypes.COMMENT_END; }
-  {CRLF}                              { popState(); return DustTypes.COMMENT_CONTENT; }
-  .                                   { return DustTypes.COMMENT_TODO; }
+  "{!" [^*] ~"!}"     { popState(); return DustTypes.COMMENT; }
 }
 
 /* Rules for HTML */
@@ -198,7 +183,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
       } else if (c.equals(":")) {
         pushState(DUST_TAG); return DustTypes.ELSE;
       } else if (c.equals("!")) {
-        pushState(COMMENT); return DustTypes.COMMENT_START;
+        pushState(COMMENT); yypushback(2); return DustTypes.COMMENT;
       } else if (c.equals(" ")) {
         return DustTypes.HTML;
       } else if (c.equals("\n")) {
@@ -214,7 +199,6 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
     return DustTypes.HTML;
   }
 }
-{WS}+                                 { return TokenType.WHITE_SPACE; }
 !([^]*"{"[^]*)                         { return DustTypes.HTML; }
 }
 

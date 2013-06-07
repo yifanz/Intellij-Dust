@@ -28,7 +28,6 @@ import java.io.Reader;
  */
 public class DustParserDefinition  implements ParserDefinition{
   public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-  public static final TokenSet COMMENTS = TokenSet.create(DustTypes.COMMENT_CONTENT, DustTypes.COMMENT_START, DustTypes.COMMENT_END, DustTypes.COMMENT_TODO);
 
   public static final IFileElementType FILE = new IFileElementType(Language.<DustLanguage>findInstance(DustLanguage.class));
 
@@ -45,7 +44,7 @@ public class DustParserDefinition  implements ParserDefinition{
 
   @NotNull
   public TokenSet getCommentTokens() {
-    return COMMENTS;
+    return TokenSet.create(DustTypes.COMMENT);
   }
 
   @NotNull

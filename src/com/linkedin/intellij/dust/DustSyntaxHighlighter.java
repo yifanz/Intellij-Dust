@@ -36,7 +36,6 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
       new TextAttributes(Color.RED, null, null, null, Font.BOLD));
 
   private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
-  private static final TextAttributesKey[] TODO_KEYS = new TextAttributesKey[]{TODO};
   private static final TextAttributesKey[] TAG_KEYS = new TextAttributesKey[]{TAG};
   private static final TextAttributesKey[] IDENTIFIER_KEYS = new TextAttributesKey[]{IDENTIFIER};
   private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
@@ -54,8 +53,6 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
     if (isPartOfComment(tokenType)) {
       return COMMENT_KEYS;
-    } else if (tokenType.equals(DustTypes.COMMENT_TODO)) {
-      return TODO_KEYS;
     } else if (tokenType.equals(DustTypes.IDENTIFIER)) {
       return IDENTIFIER_KEYS;
     } else if (isPartOfTag(tokenType)) {
@@ -90,8 +87,6 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   }
 
   private static boolean isPartOfComment(IElementType tokenType) {
-    return tokenType.equals(DustTypes.COMMENT_START)
-        || tokenType.equals(DustTypes.COMMENT_END)
-        || tokenType.equals(DustTypes.COMMENT_CONTENT);
+    return tokenType.equals(DustTypes.COMMENT);
   }
 }
