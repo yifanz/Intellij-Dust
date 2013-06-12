@@ -1,6 +1,5 @@
 package com.linkedin.intellij.dust;
 
-import com.intellij.icons.AllIcons;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
@@ -62,7 +61,7 @@ public class DustColorSettingsPage implements ColorSettingsPage {
   @Nullable
   @Override
   public Icon getIcon() {
-    return AllIcons.FileTypes.Properties;
+    return DustIcons.FILE;
   }
 
   @NotNull

@@ -33,6 +33,11 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 
 ## Release Notes
 
+**Version 0.3.1**
+
+* Fixed compatibility issues with Intellij 11 and set it as the minimum supported version
+* Fixed bugs in left curly brace and identifier token patterns in lexer
+
 **Version 0.3**
 
 * Added closing tag auto-completion

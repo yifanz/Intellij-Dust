@@ -2,9 +2,6 @@ package com.linkedin.intellij.dust;
 
 import com.intellij.lexer.FlexAdapter;
 import com.intellij.lexer.Lexer;
-import com.intellij.lexer.LookAheadLexer;
-import com.intellij.lexer.MergingLexerAdapter;
-import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.SyntaxHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.editor.markup.TextAttributes;
@@ -26,11 +23,12 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
  * Time: 3:13 PM
  */
 public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
-  public static final TextAttributesKey COMMENT = createTextAttributesKey("DUST_COMMENT", SyntaxHighlighterColors.LINE_COMMENT);
+  // TODO this method of text highlighting is deprecated in intellij v12. Need to refactor once v11 is no longer supported.
+  public static final TextAttributesKey COMMENT = createTextAttributesKey("DUST_COMMENT", SyntaxHighlighterColors.LINE_COMMENT.getDefaultAttributes());
   public static final TextAttributesKey TODO = createTextAttributesKey("DUST_TODO", new TextAttributes(Color.BLUE, null, null, null, Font.BOLD|Font.ITALIC));
-  public static final TextAttributesKey TAG = createTextAttributesKey("DUST_TAG", SyntaxHighlighterColors.KEYWORD);
-  public static final TextAttributesKey IDENTIFIER = createTextAttributesKey("DUST_IDENTIFIER", SyntaxHighlighterColors.KEYWORD);
-  public static final TextAttributesKey STRING = createTextAttributesKey("DUST_STRING", SyntaxHighlighterColors.STRING);
+  public static final TextAttributesKey TAG = createTextAttributesKey("DUST_TAG", SyntaxHighlighterColors.KEYWORD.getDefaultAttributes());
+  public static final TextAttributesKey IDENTIFIER = createTextAttributesKey("DUST_IDENTIFIER", SyntaxHighlighterColors.KEYWORD.getDefaultAttributes());
+  public static final TextAttributesKey STRING = createTextAttributesKey("DUST_STRING", SyntaxHighlighterColors.STRING.getDefaultAttributes());
 
   static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("DUST_BAD_CHARACTER",
       new TextAttributes(Color.RED, null, null, null, Font.BOLD));

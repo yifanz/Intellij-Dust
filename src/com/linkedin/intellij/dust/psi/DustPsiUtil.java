@@ -46,4 +46,17 @@ public class DustPsiUtil {
     return element.getNode().getElementType() == DustTypes.STATEMENTS
         && statementsParent != null;
   }
+
+  public static DustSelfCloseTag findParentPartialTagElement(PsiElement element) {
+    return (DustSelfCloseTag) PsiTreeUtil.findFirstParent(element, true, new Condition<PsiElement>() {
+      @Override
+      public boolean value(PsiElement element) {
+        return element != null
+            && element instanceof DustSelfCloseTag
+            && element.getFirstChild() != null
+            && element.getFirstChild().getNode() != null
+            && element.getFirstChild().getNode().getElementType() == DustTypes.PARTIAL;
+      }
+    });
+  }
 }

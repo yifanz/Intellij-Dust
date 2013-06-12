@@ -30,6 +30,16 @@ public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
   @Nullable
   @Override
   public PsiElement[] getGotoDeclarationTargets(PsiElement sourceElement, int offset, Editor editor) {
+    return gotoReferences(sourceElement);
+  }
+
+  @Nullable
+  @Override
+  public String getActionText(DataContext context) {
+    return null;
+  }
+
+  public static PsiElement[] gotoReferences(PsiElement sourceElement) {
     if (sourceElement != null) {
       PsiElement parent = sourceElement.getParent();
       if (parent instanceof DustPath) {
@@ -57,6 +67,7 @@ public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
                   FileTypeIndex.NAME, DustFileType.INSTANCE, GlobalSearchScope.allScope(project)
               );
               List<PsiElement> foundElements = new ArrayList<PsiElement>();
+              PsiFile containingFile = sourceElement.getContainingFile();
               for (VirtualFile vFile : virtualFiles) {
                 if (fileName.equals(vFile.getNameWithoutExtension())) {
                   String vFilePathStr = vFile.getPath();
@@ -84,7 +95,7 @@ public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
                       if (match) {
 //                        System.out.println("@@@@@@@@@ FOUND! " + vFile.getPath());
                         PsiFile psiFile = manager.findFile(vFile);
-                        if (psiFile instanceof DustFile) {
+                        if (psiFile instanceof DustFile && psiFile != containingFile) {
                           foundElements.add(psiFile);
                         }
                       }
@@ -106,12 +117,6 @@ public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
         }
       }
     }
-    return new PsiElement[0];
-  }
-
-  @Nullable
-  @Override
-  public String getActionText(DataContext context) {
     return null;
   }
 }

@@ -64,7 +64,7 @@ COLON=:
 STRING=\"((\\.)|[^\"])*\"
 STRING_SINGLE='((\\.)|[^'])*'
 
-IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
+IDENTIFIER=[a-zA-Z_$][a-zA-Z_0-9]*
 
 %state DUST_TAG
 %state DUST_INDEX
@@ -98,40 +98,57 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z_0-9]*
 {LD}~{RD}                             {
   boolean isDustLD = true;
 
-  while (yylength() > 1) {
-    String c = yytext().subSequence(yylength() - 1, yylength()).toString();
-    for (int i = 0; i < checks.length; i++) {
-      if (c.equals(checks[i])) isDustLD = false;
+  if (yylength() > 2) {
+    boolean isAllWhitespace = true;
+    CharSequence cSeq = yytext();
+    int size = cSeq.length();
+
+    for (int i = 1; i < size - 1; i++) {
+      if (!Character.isWhitespace(cSeq.charAt(i))) { isAllWhitespace = false; break; }
     }
-    if (yylength() == 2) {
-      if (c.equals("#")) {
-        pushState(DUST_TAG); return DustTypes.SECTION;
-      } else if (c.equals("?")) {
-        pushState(DUST_TAG); return DustTypes.EXISTANCE;
-      } else if (c.equals("^")) {
-        pushState(DUST_TAG); return DustTypes.NOT_EXISTANCE;
-      } else if (c.equals("@")) {
-        pushState(DUST_TAG); return DustTypes.HELPER;
-      } else if (c.equals(">")) {
-        pushState(DUST_TAG); return DustTypes.PARTIAL;
-      } else if (c.equals("<")) {
-        pushState(DUST_TAG); return DustTypes.INLINE_PARTIAL;
-      } else if (c.equals("+")) {
-        pushState(DUST_TAG); return DustTypes.BLOCK;
-      } else if (c.equals("/")) {
-        pushState(DUST_TAG); return DustTypes.CLOSE;
-      } else if (c.equals(":")) {
-        pushState(DUST_TAG); return DustTypes.ELSE;
-      } else if (c.equals("!")) {
-        pushState(COMMENT); yypushback(2); return DustTypes.COMMENT;
-      } else if (c.equals(" ")) {
-        return DustTypes.HTML;
-      } else if (c.equals("\n")) {
-        return DustTypes.HTML;
+
+    if (!isAllWhitespace) {
+      while (yylength() > 1) {
+          String c = yytext().subSequence(yylength() - 1, yylength()).toString();
+          for (int i = 0; i < checks.length; i++) {
+            if (c.equals(checks[i])) isDustLD = false;
+          }
+          if (yylength() == 2) {
+            if (c.equals("#")) {
+              pushState(DUST_TAG); return DustTypes.SECTION;
+            } else if (c.equals("?")) {
+              pushState(DUST_TAG); return DustTypes.EXISTANCE;
+            } else if (c.equals("^")) {
+              pushState(DUST_TAG); return DustTypes.NOT_EXISTANCE;
+            } else if (c.equals("@")) {
+              pushState(DUST_TAG); return DustTypes.HELPER;
+            } else if (c.equals(">")) {
+              pushState(DUST_TAG); return DustTypes.PARTIAL;
+            } else if (c.equals("<")) {
+              pushState(DUST_TAG); return DustTypes.INLINE_PARTIAL;
+            } else if (c.equals("+")) {
+              pushState(DUST_TAG); return DustTypes.BLOCK;
+            } else if (c.equals("/")) {
+              pushState(DUST_TAG); return DustTypes.CLOSE;
+            } else if (c.equals(":")) {
+              pushState(DUST_TAG); return DustTypes.ELSE;
+            } else if (c.equals("!")) {
+              pushState(COMMENT); yypushback(2); return DustTypes.COMMENT;
+            } else if (c.equals(" ")) {
+              return DustTypes.HTML;
+            } else if (c.equals("\n")) {
+              return DustTypes.HTML;
+            }
+          }
+          yypushback(1);
       }
+    } else {
+      isDustLD = false;
     }
-    yypushback(1);
+  } else {
+    isDustLD = false;
   }
+
 
   if (isDustLD) {
     pushState(DUST_TAG); return DustTypes.LD;
