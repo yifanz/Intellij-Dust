@@ -16,7 +16,7 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 
 **Manual Install**
 
-1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_c797dbf.jar)
+1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_4af1fa911ed6.jar)
 2. Go to File > Settings > Plugins > Install plugin from disk
 
 ## Developer Notes
@@ -32,6 +32,10 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 4. (Optional) Install [PSI Viewer](http://plugins.jetbrains.com/plugin/?id=227) plugin which lets you see the parse tree graphically.
 
 ## Release Notes
+
+**Version 0.3.2**
+
+* Fixed bug in comment parsing
 
 **Version 0.3.1**
 
