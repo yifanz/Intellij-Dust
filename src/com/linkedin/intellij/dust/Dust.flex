@@ -78,7 +78,7 @@ IDENTIFIER=[a-zA-Z_$][a-zA-Z_0-9]*
 {WS}+                                 { return TokenType.WHITE_SPACE; }
 
 <COMMENT> {
-  "{!" [^*] ~"!}"     { popState(); return DustTypes.COMMENT; }
+  "{!" ~"!}"     { popState(); return DustTypes.COMMENT; }
 }
 
 {SECTION}                             { pushState(DUST_TAG); return DustTypes.SECTION; }
