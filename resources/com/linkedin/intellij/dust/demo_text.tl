@@ -24,6 +24,11 @@
       {/first}
     {/name}
   {/someInlinePartial}
+
+  {#items}
+    {>"partials-view" item=. /}
+    {@eq key=idx value=125}{/eq}
+  {/items}
   {+selfClosingBlock/}
   {+block}Default Value{/block}
 {/person}

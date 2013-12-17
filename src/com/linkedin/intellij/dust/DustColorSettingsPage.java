@@ -24,6 +24,7 @@ import java.util.Map;
 public class DustColorSettingsPage implements ColorSettingsPage {
   private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
       new AttributesDescriptor("Dust Tag", DustSyntaxHighlighter.TAG),
+      new AttributesDescriptor("Number", DustSyntaxHighlighter.NUMBER),
       new AttributesDescriptor("Identifier", DustSyntaxHighlighter.IDENTIFIER),
       new AttributesDescriptor("String", DustSyntaxHighlighter.STRING),
       new AttributesDescriptor("Comments", DustSyntaxHighlighter.COMMENT),

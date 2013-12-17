@@ -1,7 +1,7 @@
 <idea-plugin version="2" url="https://github.com/yifanz/Intellij-Dust">
   <id>com.linkedin.intellij.dust</id>
   <name>Dust</name>
-  <version>0.3.2</version>
+  <version>0.3.3</version>
   <vendor logo="/com/linkedin/intellij/dust/icons/dust_icon.png" url="https://github.com/yifanz">Yi-Fan Zhang</vendor>
 
   <description><![CDATA[
@@ -14,6 +14,12 @@
   <category>Custom Languages</category>
 
   <change-notes><![CDATA[
+    <b>Version 0.3.3</b>
+    <ul>
+      <li>
+        Fixed bug with using current context and numbers as attribute values
+      </li>
+    </ul>
     <b>Version 0.3.2</b>
     <ul>
       <li>

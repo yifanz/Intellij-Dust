@@ -38,18 +38,18 @@ self_close_tag ::= (HELPER|PARTIAL|INLINE_PARTIAL|BLOCK|CLOSE|ELSE|LD) tag_name 
 
 tag_name ::= (path|STRING|STRING_SINGLE|IDENTIFIER|PERIOD)
 
-index_deref ::= LB (IDENTIFIER+|path) RB
+index_deref ::= LB (NUMBER|IDENTIFIER+|path) RB
 
 context ::= COLON (path|STRING|STRING_SINGLE|IDENTIFIER|PERIOD)
 
 tag_content ::= attribute* filter*
 
-path::= PERIOD? IDENTIFIER (PERIOD IDENTIFIER)*
+path::= (PERIOD? IDENTIFIER (PERIOD IDENTIFIER)*) | PERIOD
 
-attribute ::= CRLF? IDENTIFIER EQUAL (path|attrString|IDENTIFIER) CRLF?
+attribute ::= CRLF? IDENTIFIER EQUAL (path|attrString|NUMBER|IDENTIFIER) CRLF?
 
 attrString ::= (STRING_START ((tag_block|tag|i18nFormat) | STRING+)+ STRING_END) | (STRING_START STRING_END)
 
-i18nFormat ::= LD (tag|IDENTIFIER|HTML|PIPE)* RD
+i18nFormat ::= LD (tag|NUMBER|IDENTIFIER|HTML|PIPE)* RD
 
 filter ::= PIPE IDENTIFIER

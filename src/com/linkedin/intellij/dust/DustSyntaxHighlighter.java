@@ -28,6 +28,7 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   public static final TextAttributesKey TODO = createTextAttributesKey("DUST_TODO", new TextAttributes(Color.BLUE, null, null, null, Font.BOLD|Font.ITALIC));
   public static final TextAttributesKey TAG = createTextAttributesKey("DUST_TAG", SyntaxHighlighterColors.KEYWORD.getDefaultAttributes());
   public static final TextAttributesKey IDENTIFIER = createTextAttributesKey("DUST_IDENTIFIER", SyntaxHighlighterColors.KEYWORD.getDefaultAttributes());
+  public static final TextAttributesKey NUMBER = createTextAttributesKey("DUST_NUMBER", SyntaxHighlighterColors.NUMBER.getDefaultAttributes());
   public static final TextAttributesKey STRING = createTextAttributesKey("DUST_STRING", SyntaxHighlighterColors.STRING.getDefaultAttributes());
 
   static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("DUST_BAD_CHARACTER",
@@ -36,6 +37,7 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
   private static final TextAttributesKey[] TAG_KEYS = new TextAttributesKey[]{TAG};
   private static final TextAttributesKey[] IDENTIFIER_KEYS = new TextAttributesKey[]{IDENTIFIER};
+  private static final TextAttributesKey[] NUMBER_KEYS = new TextAttributesKey[]{NUMBER};
   private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
   private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
   private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
@@ -51,6 +53,8 @@ public class DustSyntaxHighlighter extends SyntaxHighlighterBase {
   public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
     if (isPartOfComment(tokenType)) {
       return COMMENT_KEYS;
+    } else if (tokenType.equals(DustTypes.NUMBER)) {
+      return NUMBER_KEYS;
     } else if (tokenType.equals(DustTypes.IDENTIFIER)) {
       return IDENTIFIER_KEYS;
     } else if (isPartOfTag(tokenType)) {

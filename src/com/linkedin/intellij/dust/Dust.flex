@@ -175,12 +175,15 @@ IDENTIFIER=[a-zA-Z_$][a-zA-Z_0-9]*
   {COLON}                               { return DustTypes.COLON; }
 
   {IDENTIFIER}+                         { return DustTypes.IDENTIFIER; }
+  [0-9]+\.?[0-9]+                       { return DustTypes.NUMBER; }
+  [0-9]+                                { return DustTypes.NUMBER; }
   {LB}                                  { pushState(DUST_INDEX); return DustTypes.LB; }
 }
 
 <DUST_INDEX> {
   {IDENTIFIER}+                         { return DustTypes.IDENTIFIER; }
-  [0-9]+                         { return DustTypes.IDENTIFIER; }
+  [0-9]+\.?[0-9]+                       { return DustTypes.NUMBER; }
+  [0-9]+                                { return DustTypes.NUMBER; }
   {RB}                        { popState(); return DustTypes.RB; }
 }
 <DUST_ATTR> {
