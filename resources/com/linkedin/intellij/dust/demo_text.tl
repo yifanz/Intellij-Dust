@@ -28,6 +28,7 @@
   {#items}
     {>"partials-view" item=. /}
     {@eq key=idx value=125}{/eq}
+    {0}
   {/items}
   {+selfClosingBlock/}
   {+block}Default Value{/block}

@@ -2,4 +2,4 @@
 gen/
 out/
 src/com/linkedin/intellij/dust/DustLexer.java
-dust_syntax.jar
+dust_syntax*.jar
