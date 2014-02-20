@@ -34,7 +34,7 @@ else_tag ::= ELSE tag_name tag_content RD
 
 close_tag ::= CLOSE tag_name index_deref? tag_content RD
 
-self_close_tag ::= (HELPER|PARTIAL|INLINE_PARTIAL|BLOCK|CLOSE|ELSE|LD) tag_name context* tag_content SLASH_RD
+self_close_tag ::= (SECTION|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK|CLOSE|ELSE|LD) tag_name context* tag_content SLASH_RD
 
 tag_name ::= (path|STRING|STRING_SINGLE|IDENTIFIER|PERIOD|NUMBER)
 

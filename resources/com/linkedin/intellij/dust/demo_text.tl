@@ -20,6 +20,7 @@
         {subscript[0]}
       {:else}
         <button>what's your name</button>
+        {#selfClosingSection/}
         <a href='{@pre.link key="home_page" args="id:{userId},track:{tackingCode}_suffix"/}'></a>
       {/first}
     {/name}
