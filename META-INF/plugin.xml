@@ -14,6 +14,15 @@
   <category>Custom Languages</category>
 
   <change-notes><![CDATA[
+    <b>Version 0.3.6</b>
+    <ul>
+      <li>
+        Allow path expression inside subscript
+      </li>
+      <li>
+        Fix bugs in subscript tokenizer rule
+      </li>
+    </ul>
     <b>Version 0.3.5</b>
     <ul>
       <li>

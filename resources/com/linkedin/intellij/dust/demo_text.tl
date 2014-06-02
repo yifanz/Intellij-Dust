@@ -18,6 +18,8 @@
       {?first}
         <p>{.first}</p>
         {subscript[0]}
+        {subscript[0].content}
+        {subscript[index.key].content}
       {:else}
         <button>what's your name</button>
         {#selfClosingSection/}

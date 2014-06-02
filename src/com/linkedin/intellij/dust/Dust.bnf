@@ -26,30 +26,30 @@ tag_block ::= open_tag statements_block close_tag { pin=1 }
 
 tag ::= (self_close_tag|key_tag)
 
-key_tag ::= LD tag_name index_deref? context* tag_content RD
+key_tag ::= LD tag_name context* tag_content RD
 
-open_tag ::= (SECTION|EXISTANCE|NOT_EXISTANCE|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK) CRLF? tag_name index_deref? context* tag_content RD
+open_tag ::= (SECTION|EXISTANCE|NOT_EXISTANCE|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK) CRLF? tag_name context* tag_content RD
 
 else_tag ::= ELSE tag_name tag_content RD
 
-close_tag ::= CLOSE tag_name index_deref? tag_content RD
+close_tag ::= CLOSE tag_name tag_content RD
 
 self_close_tag ::= (SECTION|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK|CLOSE|ELSE|LD) tag_name context* tag_content SLASH_RD
 
 tag_name ::= (path|STRING|STRING_SINGLE|IDENTIFIER|PERIOD|NUMBER)
 
-index_deref ::= LB (NUMBER|IDENTIFIER+|path) RB
+index_deref ::= LB (NUMBER | PERIOD | path) RB
 
 context ::= COLON (path|STRING|STRING_SINGLE|IDENTIFIER|PERIOD)
 
 tag_content ::= attribute* filter*
 
-path::= (PERIOD? IDENTIFIER (PERIOD IDENTIFIER)*) | PERIOD
+path ::= (PERIOD? IDENTIFIER index_deref? (PERIOD IDENTIFIER index_deref?)*)
 
-attribute ::= CRLF? IDENTIFIER EQUAL (path|attrString|NUMBER|IDENTIFIER) CRLF?
+attribute ::= CRLF? IDENTIFIER EQUAL (path|attrString|NUMBER|IDENTIFIER|PERIOD) CRLF?
 
 attrString ::= (STRING_START ((tag_block|tag|i18nFormat) | STRING+)+ STRING_END) | (STRING_START STRING_END)
 
-i18nFormat ::= LD (tag|NUMBER|IDENTIFIER|HTML|PIPE)* RD
+i18nFormat ::= LD (tag|NUMBER|IDENTIFIER|HTML|PIPE|PERIOD)* RD
 
 filter ::= PIPE IDENTIFIER
