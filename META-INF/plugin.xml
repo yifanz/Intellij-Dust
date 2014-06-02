@@ -1,7 +1,7 @@
 <idea-plugin version="2" url="https://github.com/yifanz/Intellij-Dust">
   <id>com.linkedin.intellij.dust</id>
   <name>Dust</name>
-  <version>0.3.5</version>
+  <version>0.3.6</version>
   <vendor logo="/com/linkedin/intellij/dust/icons/dust_icon.png" url="https://github.com/yifanz">Yi-Fan Zhang</vendor>
 
   <description><![CDATA[
