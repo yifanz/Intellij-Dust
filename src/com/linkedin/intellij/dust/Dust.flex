@@ -58,7 +58,8 @@ RB=\]
 
 EQUAL==
 PIPE=\|
-PERIOD=\.
+PERIOD_SPACE=\.{WS}
+PERIOD_NOSPACE=\.
 COLON=:
 
 STRING=\"((\\.)|[^\"])*\"
@@ -170,7 +171,8 @@ IDENTIFIER=[a-zA-Z_$][a-zA-Z_0-9]*
   {EQUAL} / ['\"]                       { pushState(DUST_ATTR); return DustTypes.EQUAL; }
   {EQUAL}                               { return DustTypes.EQUAL; }
   {PIPE}                                { return DustTypes.PIPE; }
-  {PERIOD}                              { return DustTypes.PERIOD; }
+  {PERIOD_SPACE}                        { return DustTypes.PERIOD_SPACE; }
+  {PERIOD_NOSPACE}                      { return DustTypes.PERIOD_NOSPACE; }
   {COLON}                               { return DustTypes.COLON; }
   {LB}                                  { return DustTypes.LB; }
   {RB}                                  { return DustTypes.RB; }

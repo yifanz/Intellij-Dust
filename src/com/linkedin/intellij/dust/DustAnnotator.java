@@ -71,6 +71,6 @@ public class DustAnnotator implements Annotator {
   }
 
   private static String getTagName(PsiElement tag) {
-    return tag.getChildren()[0].getText();
+    return tag.getChildren()[0].getText().trim();
   }
 }

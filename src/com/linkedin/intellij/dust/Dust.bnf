@@ -36,20 +36,22 @@ close_tag ::= CLOSE tag_name tag_content RD
 
 self_close_tag ::= (SECTION|HELPER|PARTIAL|INLINE_PARTIAL|BLOCK|CLOSE|ELSE|LD) tag_name context* tag_content SLASH_RD
 
-tag_name ::= (path|STRING|STRING_SINGLE|IDENTIFIER|PERIOD|NUMBER)
+tag_name ::= (path|STRING|STRING_SINGLE|IDENTIFIER|NUMBER)
 
-index_deref ::= LB (NUMBER | PERIOD | path) RB
+period ::= PERIOD_SPACE | PERIOD_NOSPACE
 
-context ::= COLON (path|STRING|STRING_SINGLE|IDENTIFIER|PERIOD)
+index_deref ::= LB (path | NUMBER | IDENTIFIER ) RB
+
+context ::= COLON (path|STRING|STRING_SINGLE|IDENTIFIER)
 
 tag_content ::= attribute* filter*
 
-path ::= (PERIOD? IDENTIFIER index_deref? (PERIOD IDENTIFIER index_deref?)*)
+path ::= (PERIOD_NOSPACE? IDENTIFIER index_deref? (PERIOD_NOSPACE IDENTIFIER index_deref?)*) | period
 
-attribute ::= CRLF? IDENTIFIER EQUAL (path|attrString|NUMBER|IDENTIFIER|PERIOD) CRLF?
+attribute ::= CRLF? IDENTIFIER EQUAL (path|NUMBER|IDENTIFIER|attrString) CRLF?
 
 attrString ::= (STRING_START ((tag_block|tag|i18nFormat) | STRING+)+ STRING_END) | (STRING_START STRING_END)
 
-i18nFormat ::= LD (tag|NUMBER|IDENTIFIER|HTML|PIPE|PERIOD)* RD
+i18nFormat ::= LD (tag|NUMBER|IDENTIFIER|HTML|PIPE|period)* RD
 
 filter ::= PIPE IDENTIFIER
