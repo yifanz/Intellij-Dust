@@ -16,7 +16,7 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 
 **Manual Install**
 
-1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_0_3_6.jar)
+1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_0_3_7.jar)
 2. Go to File > Settings > Plugins > Install plugin from disk
 
 ## Developer Notes
@@ -32,6 +32,12 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 4. (Optional) Install [PSI Viewer](http://plugins.jetbrains.com/plugin/?id=227) plugin which lets you see the parse tree graphically.
 
 ## Release Notes
+
+**Version 0.3.7**
+
+* Use system dependent file separator when resolving partial declarations
+* Fixed parsing errors with single period path expressions
+* Allow multiple colon tags
 
 **Version 0.3.6**
 
