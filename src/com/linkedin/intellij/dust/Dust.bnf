@@ -20,7 +20,7 @@ statements ::= (COMMENT|tag_block|tag|json|HTML|CRLF)* { pin=1 }
 
 json ::= LD (json|tag|HTML|CRLF|STRING|IDENTIFIER)* RD
 
-private statements_block ::= (statements? else_tag statements?) | statements
+private statements_block ::= statements (else_tag statements?)*
 
 tag_block ::= open_tag statements_block close_tag { pin=1 }
 
