@@ -14,6 +14,7 @@ import com.intellij.util.indexing.FileBasedIndex;
 import com.linkedin.intellij.dust.psi.*;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +28,8 @@ import java.util.List;
  * Allows goto declaration shortcut on dust partial tags
  */
 public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
+  private static final String DUST_SOURCE_SEP = "/";
+
   @Nullable
   @Override
   public PsiElement[] getGotoDeclarationTargets(PsiElement sourceElement, int offset, Editor editor) {
@@ -55,7 +58,7 @@ public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
           if (filePathStr.charAt(0) == '"' || filePathStr.charAt(0) == '\'') {
             filePathStr = filePathStr.trim().substring(1, filePathStr.length() - 1);
           }
-          String[] filePath = filePathStr.split("/");
+          String[] filePath = filePathStr.split(DUST_SOURCE_SEP);
 
           if (filePath != null && filePath.length > 0) {
             String fileName = filePath[filePath.length - 1];
@@ -76,7 +79,7 @@ public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
                       && basePath.length() + 1 < vFilePathStr.length()
                       && vFilePathStr.startsWith(basePath)) {
                     vFilePathStr = vFilePathStr.substring(basePath.length() + 1);
-                    String[] vFilePath = vFilePathStr.split("/");
+                    String[] vFilePath = vFilePathStr.split(File.separator);
                     if (vFilePath != null && vFilePath.length > 0) {
                       boolean match = true;
                       int j = vFilePath.length - 2;
