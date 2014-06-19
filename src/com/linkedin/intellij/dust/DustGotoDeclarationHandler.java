@@ -69,6 +69,9 @@ public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
             filePathStr = filePathStr.trim().substring(1, filePathStr.length() - 1);
           }
           String[] filePath = filePathStr.split(DUST_SOURCE_SEP);
+          if (filePath != null && filePath[0].equals("")) {
+              filePath[0] = DUST_SOURCE_SEP;
+          }
 
           if (filePath != null && filePath.length > 0) {
             String fileName = filePath[filePath.length - 1];
