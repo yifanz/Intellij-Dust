@@ -21,13 +21,13 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 
 ## Developer Notes
 
-1. Open the project with Intellij. The project is already setup to be an Intellij Plugin Module and should have the build settings configured. The only build dependency is the IDEA SDK. However, you may need to configure the SDK verison and location specific to your system.
+1. Open the project with Intellij. The project is already setup to be an Intellij Plugin Module and should have the build settings configured. The only build dependency is the IDEA SDK. However, you may need to configure the SDK verison and location specific to your system. Recommend developing on Mac or Linux with Intellij 12.
 
 2. Install the [JFlex](http://plugins.jetbrains.com/plugin/?id=263) and [Grammar-Kit](http://plugins.jetbrains.com/plugin/?id=6606) plugins
 
 3. Disable the external compiler via Settings > Compiler > Use external build option.
 
-3. You will need the Grammar-Kit to generate the parser source files from Dust.bnf and JFlex to generate the DustLexer from Dust.flex. Since the generated sources are not checked into version control, you need to remember to generate the lexer/parser before compiling.
+3. You will need the Grammar-Kit to generate the parser source files from Dust.bnf and JFlex to generate the DustLexer from Dust.flex. Since the generated sources are not checked into version control, you need to remember to generate the lexer/parser before compiling. Latest version of JFlex may generate a LexerAdapter which is not used and should be manually deleted.
 
 4. (Optional) Install [PSI Viewer](http://plugins.jetbrains.com/plugin/?id=227) plugin which lets you see the parse tree graphically.
 
