@@ -17,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,6 +41,15 @@ public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
   @Override
   public String getActionText(DataContext context) {
     return null;
+  }
+
+  private static List<String> splitFilePath(VirtualFile vFile) {
+    List<String> pathTokens = new ArrayList<String>();
+    for(; vFile != null; vFile = vFile.getParent()) {
+        pathTokens.add(vFile.getNameWithoutExtension());
+    }
+    Collections.reverse(pathTokens);
+    return pathTokens;
   }
 
   public static PsiElement[] gotoReferences(PsiElement sourceElement) {
@@ -74,22 +84,21 @@ public class DustGotoDeclarationHandler implements GotoDeclarationHandler {
               for (VirtualFile vFile : virtualFiles) {
                 if (fileName.equals(vFile.getNameWithoutExtension())) {
                   String vFilePathStr = vFile.getPath();
-                  String basePath = project.getBasePath();
+                  String basePath = project.getBaseDir().getPath();
                   if (basePath != null && vFilePathStr != null
                       && basePath.length() + 1 < vFilePathStr.length()
                       && vFilePathStr.startsWith(basePath)) {
-                    vFilePathStr = vFilePathStr.substring(basePath.length() + 1);
-                    String[] vFilePath = vFilePathStr.split(File.separator);
-                    if (vFilePath != null && vFilePath.length > 0) {
+                    List<String> vFilePath = splitFilePath(vFile);
+                    if (vFilePath != null && vFilePath.size() > 0) {
                       boolean match = true;
-                      int j = vFilePath.length - 2;
+                      int j = vFilePath.size() - 2;
                       int i = filePath.length - 2;
                       for (; i >= 0; i--, j--) {
                         if (j < 0) {
                           match = false;
                           break;
                         }
-                        if (!vFilePath[j].equals(filePath[i])) {
+                        if (!vFilePath.get(j).equals(filePath[i])) {
                           match = false;
                           break;
                         }

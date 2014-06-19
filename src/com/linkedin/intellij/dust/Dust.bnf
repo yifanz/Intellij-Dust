@@ -1,6 +1,7 @@
 {
   parserClass="com.linkedin.intellij.dust.parser.DustParser"
-  stubParserClass="com.linkedin.intellij.dust.parser.GeneratedParserUtilBase"
+  parserUtilClass="com.linkedin.intellij.dust.parser.DustParserUtil"
+  stubParserClass="com.linkedin.intellij.dust.parser.DustParserUtil"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
