@@ -35,4 +35,5 @@
   {/items}
   {+selfClosingBlock/}
   {+block}Default Value{/block}
+  {@helper-tag_test/}
 {/person}

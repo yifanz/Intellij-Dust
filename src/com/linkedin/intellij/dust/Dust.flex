@@ -65,7 +65,7 @@ COLON=:
 STRING=\"((\\.)|[^\"])*\"
 STRING_SINGLE='((\\.)|[^'])*'
 
-IDENTIFIER=[a-zA-Z_$][a-zA-Z_0-9]*
+IDENTIFIER=[a-zA-Z_$][\-a-zA-Z_0-9]*
 
 %state DUST_TAG
 %state DUST_ATTR
