@@ -293,3 +293,6 @@ dsfg!}
         TODO asdf
 
         !}
+{@helper-test_asdf_asdf}
+    {@a-b-c-d/}
+{/helper-test_asdf_asdf}
