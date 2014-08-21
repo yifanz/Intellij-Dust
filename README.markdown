@@ -33,6 +33,10 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 
 ## Release Notes
 
+**Version 0.3.8**
+
+* Allow hyphen inside of identifiers
+
 **Version 0.3.7**
 
 * Use system dependent file separator when resolving partial declarations
