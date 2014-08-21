@@ -16,7 +16,7 @@ Plugin is available through the [Jetbrains plugin repository](http://plugins.jet
 
 **Manual Install**
 
-1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_0_3_7.jar)
+1. Download the [plugin](http://yifanz.github.com/Intellij-Dust/downloads/dust_syntax_0_3_8.jar)
 2. Go to File > Settings > Plugins > Install plugin from disk
 
 ## Developer Notes
