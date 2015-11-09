@@ -1,3 +1,5 @@
+This repository is no longer maintained.
+
 # Dust Plugin for Intellij
 
 Provides syntax highlighting for the Dust templating language.
